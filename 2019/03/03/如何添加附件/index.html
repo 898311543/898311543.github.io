@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>王道机试指南 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="下载链接  标题一标题二标题3">
+  <meta name="description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
 <meta property="og:type" content="article">
 <meta property="og:title" content="王道机试指南">
 <meta property="og:url" content="http://yoursite.com/2019/03/03/如何添加附件/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="下载链接  标题一标题二标题3">
+<meta property="og:description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-03T04:58:38.476Z">
+<meta property="og:updated_time" content="2019-03-03T06:42:00.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="王道机试指南">
-<meta name="twitter:description" content="下载链接  标题一标题二标题3">
+<meta name="twitter:description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -176,7 +176,49 @@
       
         <a href="/2019/03/03/如何添加附件/《王道论坛计算机考研机试指南》.pdf" title="下载链接">下载链接</a>
 <hr>
-<h1 id="标题一"><a href="#标题一" class="headerlink" title="标题一"></a>标题一</h1><h2 id="标题二"><a href="#标题二" class="headerlink" title="标题二"></a>标题二</h2><h3 id="标题3"><a href="#标题3" class="headerlink" title="标题3"></a>标题3</h3>
+<h2 id="A-B问题"><a href="#A-B问题" class="headerlink" title="A^B问题"></a>A^B问题</h2><pre><code>#include &lt;stdio.h&gt;
+
+int main(){
+    int a,b;
+    int ans;
+    while(scanf(&quot;%d%d&quot;,&amp;a,&amp;b) != EOF){
+        char bin[40],size=0;
+        if(a==0 &amp;&amp; b ==0) break;
+        int ans = 1;
+        while(b != 0){
+          if(b % 2 == 1){
+            ans *= a;
+            ans %= 1000;
+        }
+        b /= 2;
+        a *= a;
+        a %= 1000;
+    }
+    printf(&quot;%d\n&quot;,ans);
+}
+return 0;
+}
+</code></pre><hr>
+<pre><code>int main(){
+    int a,b;
+    int ans = 1;
+    while(scanf(&quot;%d%d&quot;,&amp;a,&amp;b) != EOF){
+        ans = 1;
+        while(b != 0){
+            if(b % 2 == 1){
+                ans *= a;
+            }
+            a *= a;
+            b /= 2;
+        }
+        printf(&quot;%d\n&quot;,ans);
+    }
+}
+</code></pre><ul>
+<li>在A^B次方问题中，如果问题要求的最终结果较大并且，取后几位，可以通过取模取得后几位。最后几位的n次方结果取决于底数的最后几位，这很好理解。</li>
+<li>将指数的幂转化为二进制，能够降低运算的时间复杂度。</li>
+</ul>
+
       
 
       
