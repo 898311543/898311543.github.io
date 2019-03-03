@@ -216,7 +216,81 @@ return 0;
 <li>在A^B次方问题中，如果问题要求的最终结果较大并且，取后几位，可以通过取模取得后几位。最后几位的n次方结果取决于底数的最后几位，这很好理解。</li>
 <li>将指数的幂转化为二进制，能够降低运算的时间复杂度。</li>
 </ul>
-
+<h2 id="大数相加问题"><a href="#大数相加问题" class="headerlink" title="大数相加问题"></a>大数相加问题</h2><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;math.h&gt;
+struct bigInteger{
+    int digit[1000];
+    int size;
+    int symbol; // 0是正数，1是负数 
+void init(){
+    for(int i=0;i&lt;1000;i++){
+        digit[i] = 0;    
+    }
+    size = 0;
+}
+void set(char str[]){
+    init();
+    int c=1;
+    for(int i=strlen(str)-1,j=0;i&gt;=0;i--) {
+        if(c == 1) j ++;
+        if(str[i] == &apos;-&apos;) {
+            symbol = 1;
+            continue; 
+        }
+        digit[j-1] += (str[i] - &apos;0&apos;) * c;
+        c *= 10;
+        if(c == 10000) {
+            c= 1;
+    }
+    size = j;
+}
+}
+void output(){
+    for(int i=size-1;i&gt;=0;i--){
+        if(i != size -1) printf(&quot;%04d&quot;,digit[i]);
+        else printf(&quot;%d&quot;,digit[i]);
+    }
+    printf(&quot;\n&quot;);
+}
+bigInteger operator + (const bigInteger &amp;A) const {
+    bigInteger ret;
+    ret.init();
+    int carry = 0,tmp;
+    for(int i=0;i&lt;A.size || i &lt; size;i ++){
+        if(symbol == 1 &amp;&amp; A.symbol == 1)
+            tmp = A.digit[i] + digit[i] + carry;
+        else if(symbol == 1 &amp;&amp; A.symbol == 0)
+            tmp = -digit[i] + A.digit[i] + carry;
+        else if(symbol == 0 &amp;&amp; A.symbol == 1)
+            tmp =  digit[i] - A.digit[i] + carry;
+        else
+            tmp = -digit[i] - A.digit[i] + carry;
+        carry = tmp / 10000; 
+        tmp %= 10000;
+        tmp = tmp &gt; 0? tmp:-tmp; 
+        ret.digit[ret.size ++] = tmp;
+    }
+    if(carry != 0){
+        ret.digit[ret.size ++] = carry;
+        if(carry &lt; 0) 
+            ret.symbol = 1;
+        else
+            ret.symbol = 0;
+    return ret;
+}
+}
+}a,b,c;
+char str1[1002],str2[1002];
+int main(){
+     while(scanf(&quot;%s%s&quot;,str1,str2) != EOF){
+         a.set(str1);b.set(str2);
+         c = a + b;
+         c.output();
+     }
+     return 0;
+}
+</code></pre>
       
 
       
