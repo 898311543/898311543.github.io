@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-03T12:19:37.007Z">
+<meta property="og:updated_time" content="2019-03-03T13:08:15.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="王道机试指南">
 <meta name="twitter:description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
@@ -291,6 +291,61 @@ int main(){
          c.output();
      }
      return 0;
+}
+</code></pre><hr>
+<pre><code>#include &lt;stdio.h&gt;
+
+struct bigInteger{
+    int digit[1000];
+    int size;
+    void init(){
+        for(int i=0;i&lt;1000;i++) digit[i] = 0;
+        size = 0;
+    }
+    void set(int x){
+         init();
+         do{
+             digit[size ++] = x % 10000;
+             x /= 10000;
+         }while(x != 0); 
+    }
+    void output(){
+        for(int i=size-1;i&gt;=0;i--){
+            if(i != size - 1)
+                printf(&quot;%04d&quot;,digit[i]);
+            else
+                printf(&quot;%d&quot;,digit[i]);
+        }
+        printf(&quot;\n&quot;);
+    }
+    bigInteger operator * (int x) const {
+        bigInteger ret;
+        ret.init();
+        int carry = 0;
+        for(int i=0;i&lt;size;i++){
+            int tmp = digit[i] * x + carry;
+            carry = tmp / 10000;
+            tmp %= 10000;
+            ret.digit[ret.size ++] = tmp;
+        }
+        if(carry != 0){
+            ret.digit[ret.size ++] = carry;
+        }
+        return ret;
+    }
+}a;
+
+int main(){
+    int n;
+    while(scanf(&quot;%d&quot;,&amp;n) != EOF){
+        a.init();
+        a.set(1);
+        for(int i=1;i&lt;=n;i++)
+            a = a * i;
+        a.output();
+    }
+    return 0;
+
 }
 </code></pre>
       
