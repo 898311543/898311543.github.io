@@ -345,6 +345,123 @@ int main(){
     return 0;
 
 }
+</code></pre><hr>
+<p>##高精度进制转换</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define maxDigits 1000
+struct bigInteger{
+    int digit[1000];
+    int size;
+    void init(){
+        for(int i=0;i&lt;1000;i++) digit[i] = 0;
+        size = 0;
+    }
+    void set(int x){
+         init();
+         do{
+             digit[size ++] = x % 10000;
+             x /= 10000;
+         }while(x != 0); 
+    }
+    void output(){
+        for(int i=size-1;i&gt;=0;i--){
+            if(i != size - 1)
+                printf(&quot;%04d&quot;,digit[i]);
+            else
+                printf(&quot;%d&quot;,digit[i]);
+        }
+        printf(&quot;\n&quot;);
+    }
+    bigInteger operator * (int x) const {
+        bigInteger ret;
+        ret.init();
+        int carry = 0;
+        for(int i=0;i&lt;size;i++){
+            int tmp = digit[i] * x + carry;
+            carry = tmp / 10000;
+            tmp %= 10000;
+            ret.digit[ret.size ++] = tmp;
+        }
+        if(carry != 0){
+            ret.digit[ret.size ++] = carry;
+        }
+        return ret;
+    }
+    bigInteger operator + (const bigInteger &amp;A) const{
+        bigInteger ret;
+        ret.init();
+        int carry = 0;
+        for(int i=0;i&lt;A.size || i &lt; size ;i++){
+            int tmp = A.digit[i] + digit[i] + carry;
+            carry = tmp / 10000;
+            tmp %= 10000;
+            ret.digit[ret.size ++] = tmp;
+        }
+        if(carry != 0){
+            ret.digit[ret.size++] = carry;
+        }
+        return ret;
+    }
+    bigInteger operator / (int x) const {
+        bigInteger ret;
+        ret.init();
+        int remainer = 0;
+        for(int i =size -1;i&gt;=0;i--){
+            int t = (remainer * 10000 + digit[i]) / x;
+            int r = (remainer * 10000 + digit[i]) % x;
+            ret.digit[i] = t;
+            remainer = r;
+        }
+        ret.size = 0;
+        for(int i=0;i &lt; maxDigits;i ++){
+            if(digit[i] != 0) ret.size = i;
+        }
+        ret.size ++;
+        return ret; 
+    }
+    int operator % (int x) const{
+        int remainer = 0;
+        for(int i = size - 1;i&gt;=0;i--){
+            int t = (remainer * 10000 + digit[i]) / x;
+            int r = (remainer * 10000 + digit[i]) % x;
+            remainer = r;
+        }
+        return remainer;
+    }
+}a,b,c;
+
+char str[10000];
+char ans[10000];
+int main(){
+    int m,n;
+    while(scanf(&quot;%d%d&quot;,&amp;m,&amp;n) != EOF){
+        scanf(&quot;%s&quot;,str);
+        int L = strlen(str);
+        a.set(0);
+        b.set(1);
+        for(int i=L - 1;i&gt;= 0;i--){
+            int t;
+            if(str[i] &gt;= &apos;0&apos; &amp;&amp; str[i] &lt;= &apos;9&apos;){
+                t = str[i] - &apos;0&apos;;
+            }
+            else t =str[i] - &apos;A&apos; + 10;
+            a = a + b * t;
+            b = b * m;
+        }
+        int size = 0;
+        do{
+            int t = a % n;
+            if(t &gt;= 10) ans[size ++] = t- 10 + &apos;a&apos;;
+            else ans[size ++] = t + &apos;0&apos;;
+            a = a / n;
+        }while(a.digit[0] != 0 || a.size != 1);
+        for(int i = size - 1;i &gt;= 0;i -- ) printf(&quot;%c&quot;,ans[i]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+
+}
 </code></pre>
       
 
