@@ -346,8 +346,7 @@ int main(){
 
 }
 </code></pre><hr>
-<p>##高精度进制转换</p>
-<pre><code>#include &lt;stdio.h&gt;
+<h2 id="高精度进制转换"><a href="#高精度进制转换" class="headerlink" title="高精度进制转换"></a>高精度进制转换</h2><pre><code>#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 #define maxDigits 1000
 struct bigInteger{
@@ -461,6 +460,20 @@ int main(){
     }
     return 0;
 
+}
+</code></pre><hr>
+<h2 id="大数求余数问题"><a href="#大数求余数问题" class="headerlink" title="大数求余数问题"></a>大数求余数问题</h2><pre><code>#include &lt;stdio.h&gt;
+
+int main(){
+    int ans = 0;
+    char*str = &quot;123&quot;;
+    int mod = 10; 
+    for(int i=0;str[i];i++){
+        ans *= 10;
+        ans += str[i] - &apos;0&apos;;
+        ans %= mod;
+    }
+    printf(&quot;%d\n&quot;,ans);
 }
 </code></pre>
       

@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-04T06:16:38.383Z">
+<meta property="og:updated_time" content="2019-03-04T06:36:43.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="王道机试指南">
 <meta name="twitter:description" content="下载链接  A^B问题#include &amp;lt;stdio.h&amp;gt;  int main(){     int a,b;     int ans;     while(scanf(&amp;quot;%d%d&amp;quot;,&amp;amp;a,&amp;amp;b) != EOF){         char bin[40],size=0;         if(a==0 &amp;amp;&amp;amp; b ==0) break">
@@ -348,8 +348,7 @@ int main(){
 
 }
 </code></pre><hr>
-<p>##高精度进制转换</p>
-<pre><code>#include &lt;stdio.h&gt;
+<h2 id="高精度进制转换"><a href="#高精度进制转换" class="headerlink" title="高精度进制转换"></a>高精度进制转换</h2><pre><code>#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 #define maxDigits 1000
 struct bigInteger{
@@ -463,6 +462,20 @@ int main(){
     }
     return 0;
 
+}
+</code></pre><hr>
+<h2 id="大数求余数问题"><a href="#大数求余数问题" class="headerlink" title="大数求余数问题"></a>大数求余数问题</h2><pre><code>#include &lt;stdio.h&gt;
+
+int main(){
+    int ans = 0;
+    char*str = &quot;123&quot;;
+    int mod = 10; 
+    for(int i=0;str[i];i++){
+        ans *= 10;
+        ans += str[i] - &apos;0&apos;;
+        ans %= mod;
+    }
+    printf(&quot;%d\n&quot;,ans);
 }
 </code></pre>
       
