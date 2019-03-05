@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>KindleEar部署过程和遇到的坑 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="KindleEar是一个很方便的开源软件，可以帮助你订阅rss并将生成的文件发送到Kindle中。 ###关于安装过程 KindleEar需要运行在Google的GAE中，按照官方的教程有两种安装方式，但是由于种种原因，我未能通过简单的安装方法安装成功，故介绍标准的安装方法。  申请google账号 并暂时 启用不够安全的应用的访问权限 以便上传程序。    创建一个Application，注意不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KindleEar部署过程和遇到的坑">
+<meta property="og:url" content="http://yoursite.com/2019/03/05/KindleEar部署过程和遇到的坑/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="KindleEar是一个很方便的开源软件，可以帮助你订阅rss并将生成的文件发送到Kindle中。 ###关于安装过程 KindleEar需要运行在Google的GAE中，按照官方的教程有两种安装方式，但是由于种种原因，我未能通过简单的安装方法安装成功，故介绍标准的安装方法。  申请google账号 并暂时 启用不够安全的应用的访问权限 以便上传程序。    创建一个Application，注意不">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-05T14:46:51.649Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="KindleEar部署过程和遇到的坑">
+<meta name="twitter:description" content="KindleEar是一个很方便的开源软件，可以帮助你订阅rss并将生成的文件发送到Kindle中。 ###关于安装过程 KindleEar需要运行在Google的GAE中，按照官方的教程有两种安装方式，但是由于种种原因，我未能通过简单的安装方法安装成功，故介绍标准的安装方法。  申请google账号 并暂时 启用不够安全的应用的访问权限 以便上传程序。    创建一个Application，注意不">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,103 +154,174 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-KindleEar部署过程和遇到的坑" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      KindleEar部署过程和遇到的坑
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/05/KindleEar部署过程和遇到的坑/" class="archive-article-date">
+
+        
+        <a href="/2019/03/05/KindleEar部署过程和遇到的坑/" class="archive-article-date">
   	<time datetime="2019-03-05T14:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/05/KindleEar部署过程和遇到的坑/">KindleEar部署过程和遇到的坑</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>KindleEar是一个很方便的开源软件，可以帮助你订阅rss并将生成的文件发送到Kindle中。</p>
+<p>###关于安装过程</p>
+<p>KindleEar需要运行在Google的GAE中，按照官方的教程有两种安装方式，但是由于种种原因，我未能通过简单的安装方法安装成功，故介绍标准的安装方法。</p>
+<ol>
+<li><a href="https://accounts.google.com/SignUp" target="_blank" rel="noopener">申请google账号</a> 并暂时 <a href="https://www.google.com/settings/security/lesssecureapps" target="_blank" rel="noopener">启用不够安全的应用的访问权限</a> 以便上传程序。  </li>
+<li><ol start="2">
+<li><a href="https://console.developers.google.com/project" target="_blank" rel="noopener">创建一个Application</a>，注意不用申请GCE，那个是60天试用的，而GAE是限额范围内永久免费的。  </li>
+</ol>
+</li>
+<li>安装<a href="https://cloud.google.com/sdk/downloads#versioned" target="_blank" rel="noopener">GAE SDK</a>，在windows下，需要按照CPU类型选择32位或者64为的带Python的版本[1]，下载过后，解压到一个目录并将目录中的bin文件夹添加到环境变量。</li>
+<li>下载 <a href="https://github.com/cdhigh/KindleEar/archive/master.zip" target="_blank" rel="noopener">KindleEar</a> ，解压到一个特定的目录。</li>
+<li>注释掉app.yaml和module-worker.yaml文件中的application和version项。</li>
+<li>在KindleEar目录中打开Powershell,运行命令<br> gcloud auth login –no-launch-browser[2]<br> 运行完成后按提示操作即可。</li>
+<li>gcloud app deploy –version=1 KindleEar目录\app.yaml KindleEar目录\module-worker.yaml</li>
+</ol>
+<p>通过以上步骤即可完成安装。</p>
+<blockquote>
+<p>[1]与官方教程不同，可以直接安装带有Python版本的SDK<br>[2]如果直接用gcloud auth login 无法登陆，暂时不知道什么原因。</p>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/05/KindleEar部署过程和遇到的坑/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/05/机房破解工具备份/" class="archive-article-date">
-  	<time datetime="2019-03-05T14:12:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/05/机房破解工具备份/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&#39;机房破解工具备份&#39;</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/05/机房破解工具备份/">&#39;机房破解工具备份&#39;</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/03/如何添加附件/" class="archive-article-date">
-  	<time datetime="2019-03-03T13:42:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/03/如何添加附件/">王道机试指南</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -269,8 +344,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
