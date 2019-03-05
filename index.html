@@ -152,6 +152,68 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-机房破解工具备份" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/05/机房破解工具备份/">&#39;机房破解工具备份&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/05/机房破解工具备份/" class="archive-article-date">
+  	<time datetime="2019-03-05T14:12:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a href="/2019/03/05/机房破解工具备份/机房破解工具.rar" title="下载链接">下载链接</a>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/05/机房破解工具备份/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-如何添加附件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -474,6 +536,31 @@ int main(){
         ans %= mod;
     }
     printf(&quot;%d\n&quot;,ans);
+}
+</code></pre><p>#vector的一些用法</p>
+<pre><code>#define N 1000
+using namespace std;
+struct Edge{
+    int nextNode;
+    int cost;
+
+};
+int main(){
+    vector&lt;Edge&gt; edge[N];
+    for(int i=0;i&lt;N;i++){
+        edge[i].clear();
+    }
+    Edge tmp;
+    tmp.nextNode = 3;
+    tmp.cost = 38;
+    edge[2].push_back(tmp);
+    for(int i =0;i &lt; edge[2].size();i++){
+        int nextNode = edge[2][i].nextNode;
+        int cost = edge[2][i].cost;
+        cout&lt;&lt;cost&lt;&lt;endl;
+    } 
+    edge[2].erase(edge[2].begin() + 0,edge[2].begin()+0+1);
+    return 1;
 }
 </code></pre>
       
