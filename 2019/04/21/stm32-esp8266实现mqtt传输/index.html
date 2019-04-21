@@ -8,19 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>stm32+esp8266实现mqtt传输 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho">
+  <meta name="description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。  移植的主要任务是实现transport中的四个函数。   open函数原本用于打开">
 <meta property="og:type" content="article">
 <meta property="og:title" content="stm32+esp8266实现mqtt传输">
 <meta property="og:url" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho">
+<meta property="og:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。  移植的主要任务是实现transport中的四个函数。   open函数原本用于打开">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/mqttpackage.jpg">
-<meta property="og:updated_time" content="2019-04-21T12:07:17.272Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/mqttpackage.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/QQ截图20190421200926.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/sample.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/QQ截图20190421201509.png">
+<meta property="og:updated_time" content="2019-04-21T12:20:59.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="stm32+esp8266实现mqtt传输">
-<meta name="twitter:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/mqttpackage.jpg">
+<meta name="twitter:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。  移植的主要任务是实现transport中的四个函数。   open函数原本用于打开">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/mqttpackage.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -180,8 +183,40 @@
 <ol>
 <li>下载需要用到的库<a href="https://github.com/eclipse/paho.mqtt.embedded-c" title="Paho" target="_blank" rel="noopener">Paho</a></li>
 </ol>
-<p><img src="mqttpackage.jpg" alt></p>
-
+<p><img src="mqttpackage.png" alt><br>将下载到的MQTTPackage中的文件导入Keil项目中<br><img src="QQ截图20190421200926.png" alt><br>sample文件夹中有示例程序<br><img src="sample.png" alt>需要将transport.c和transport.h复制进项目的文件夹。</p>
+<ol start="2">
+<li>移植的主要任务是实现transport中的四个函数。<img src="QQ截图20190421201509.png" alt></li>
+</ol>
+<ul>
+<li>open函数原本用于打开socket通道。不过这个项目中使用的是透传的模式进行同信，所以只需要在函数中配置好8266的模式即可。</li>
+</ul>
+<pre><code>int transport_open(char* addr, int port)
+{
+    if(esp8266_one_send(&quot;TCP&quot;,addr,port,1))
+        return -1;
+    return 1;
+}
+</code></pre><hr>
+<pre><code>int esp8266_one_send(char *mode,char *ip,int port,int delay_mode){
+    char tmp[40];
+    //单连接模式
+    if(!esp8266_command(&quot;AT+CIPMUX=0&quot;,delay_mode))
+        return 1;
+    delay_ms_m(5000,delay_mode);
+    //透传模式
+    if(!esp8266_command(&quot;AT+CIPMODE=1&quot;,delay_mode))
+        return 1;
+    SEGGER_RTT_printf(0,&quot;I am in here !&quot;);
+    delay_ms_m(5000,delay_mode);
+    sprintf(tmp,&quot;AT+CIPSTART=\&quot;%s\&quot;,\&quot;%s\&quot;,%d&quot;,mode,ip,port);
+    if(!esp8266_command(tmp,delay_mode))
+        return 1;
+    delay_ms_m(5000,delay_mode);
+    if(!esp8266_command(&quot;AT+CIPSEND&quot;,delay_mode))
+        return 1;
+    return 0;
+}
+</code></pre>
       
 
       

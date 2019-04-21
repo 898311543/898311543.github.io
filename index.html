@@ -176,8 +176,40 @@
 <ol>
 <li>下载需要用到的库<a href="https://github.com/eclipse/paho.mqtt.embedded-c" title="Paho" target="_blank" rel="noopener">Paho</a></li>
 </ol>
-<p><img src="mqttpackage.jpg" alt></p>
-
+<p><img src="mqttpackage.png" alt><br>将下载到的MQTTPackage中的文件导入Keil项目中<br><img src="QQ截图20190421200926.png" alt><br>sample文件夹中有示例程序<br><img src="sample.png" alt>需要将transport.c和transport.h复制进项目的文件夹。</p>
+<ol start="2">
+<li>移植的主要任务是实现transport中的四个函数。<img src="QQ截图20190421201509.png" alt></li>
+</ol>
+<ul>
+<li>open函数原本用于打开socket通道。不过这个项目中使用的是透传的模式进行同信，所以只需要在函数中配置好8266的模式即可。</li>
+</ul>
+<pre><code>int transport_open(char* addr, int port)
+{
+    if(esp8266_one_send(&quot;TCP&quot;,addr,port,1))
+        return -1;
+    return 1;
+}
+</code></pre><hr>
+<pre><code>int esp8266_one_send(char *mode,char *ip,int port,int delay_mode){
+    char tmp[40];
+    //单连接模式
+    if(!esp8266_command(&quot;AT+CIPMUX=0&quot;,delay_mode))
+        return 1;
+    delay_ms_m(5000,delay_mode);
+    //透传模式
+    if(!esp8266_command(&quot;AT+CIPMODE=1&quot;,delay_mode))
+        return 1;
+    SEGGER_RTT_printf(0,&quot;I am in here !&quot;);
+    delay_ms_m(5000,delay_mode);
+    sprintf(tmp,&quot;AT+CIPSTART=\&quot;%s\&quot;,\&quot;%s\&quot;,%d&quot;,mode,ip,port);
+    if(!esp8266_command(tmp,delay_mode))
+        return 1;
+    delay_ms_m(5000,delay_mode);
+    if(!esp8266_command(&quot;AT+CIPSEND&quot;,delay_mode))
+        return 1;
+    return 0;
+}
+</code></pre>
       
 
       
