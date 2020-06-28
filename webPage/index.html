@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/theme-chalk/index.css">
+	
+</head>
+<body>
+	<div id="app">
+		<h2 style="text-align: center">服务管理系统</h2>
+		<template>
+		  <el-table
+			:data="tableData"
+			stripe
+			style="width: 100%">
+			<el-table-column
+			  prop="name"
+			  label="服务名称"
+			  width="180">
+			</el-table-column>
+			<el-table-column
+			  prop="ip"
+			  label="IP"
+			  width="180">
+			</el-table-column>
+			<el-table-column
+			  prop="port"
+			  label="端口号"
+			  width="70">
+			</el-table-column>
+			 <el-table-column
+			  prop="info"
+			  label="备注">
+			</el-table-column>
+			 <el-table-column label="操作">
+			  <template slot-scope="scope">
+				  <el-button
+				  size="mini"
+				  @click="handleVerify(scope.$index, scope.row)">进入管理</el-button>
+
+			  </template>
+			</el-table-column>
+		  </el-table>
+		</template>
+	</div>
+	  <!-- import Vue before Element -->
+	  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+	  <!-- import JavaScript -->
+	  <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/index.js"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/axios-mini@0.19.61/dist/axios.min.js"></script>
+	<script>
+		new Vue({
+		  el: '#app',
+		  data: function() {
+				  return {
+					  tableData: [{
+						  name: '燕窝homeassistant',
+						  ip: '148.70.86.226',
+						  port: '8087',
+						  info: '密码是'
+					  }]
+				  }
+			  }
+		  });
+	</script>
+</body>
