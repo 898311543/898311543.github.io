@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>stm32+esp8266实现mqtt传输 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。  移植的主要任务是实现transport中的四个函数。   open函数原本用于打开">
+  <meta name="description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。2. 移植的主要任务是实现transport中的四个函数。  open函数原本用于打开">
 <meta property="og:type" content="article">
 <meta property="og:title" content="stm32+esp8266实现mqtt传输">
-<meta property="og:url" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。  移植的主要任务是实现transport中的四个函数。   open函数原本用于打开">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/mqttpackage.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/QQ截图20190421200926.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/sample.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/QQ截图20190421201509.png">
-<meta property="og:updated_time" content="2019-04-23T03:19:28.099Z">
+<meta property="og:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。2. 移植的主要任务是实现transport中的四个函数。  open函数原本用于打开">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/mqttpackage.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/QQ%E6%88%AA%E5%9B%BE20190421200926.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/sample.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/QQ%E6%88%AA%E5%9B%BE20190421201509.png">
+<meta property="article:published_time" content="2019-04-21T11:48:51.000Z">
+<meta property="article:modified_time" content="2019-04-23T03:19:28.099Z">
+<meta property="article:author" content="shubin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="stm32+esp8266实现mqtt传输">
-<meta name="twitter:description" content="由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。  下载需要用到的库Paho  将下载到的MQTTPackage中的文件导入Keil项目中sample文件夹中有示例程序需要将transport.c和transport.h复制进项目的文件夹。  移植的主要任务是实现transport中的四个函数。   open函数原本用于打开">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/mqttpackage.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/mqttpackage.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -41,8 +40,8 @@
 
   
 
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -52,7 +51,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src class="js-avatar">
+			<img src="" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">shubin</a></h1>
@@ -64,7 +63,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/随笔/">随笔</a></li>
+				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -110,7 +109,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src class="js-avatar">
+				<img src="" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">shubin</h1>
@@ -144,7 +143,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -171,7 +170,7 @@
   
 
         
-        <a href="/2019/04/21/stm32-esp8266实现mqtt传输/" class="archive-article-date">
+        <a href="/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/" class="archive-article-date">
   	<time datetime="2019-04-21T11:48:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-21</time>
 </a>
         
@@ -181,12 +180,9 @@
       
         <p>由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。</p>
 <ol>
-<li>下载需要用到的库<a href="https://github.com/eclipse/paho.mqtt.embedded-c" title="Paho" target="_blank" rel="noopener">Paho</a></li>
+<li>下载需要用到的库<a href="https://github.com/eclipse/paho.mqtt.embedded-c" target="_blank" rel="noopener" title="Paho">Paho</a></li>
 </ol>
-<p><img src="mqttpackage.png" alt><br>将下载到的MQTTPackage中的文件导入Keil项目中<br><img src="QQ截图20190421200926.png" alt><br>sample文件夹中有示例程序<br><img src="sample.png" alt>需要将transport.c和transport.h复制进项目的文件夹。</p>
-<ol start="2">
-<li>移植的主要任务是实现transport中的四个函数。<img src="QQ截图20190421201509.png" alt></li>
-</ol>
+<p><img src="mqttpackage.png"><br>将下载到的MQTTPackage中的文件导入Keil项目中<br><img src="QQ%E6%88%AA%E5%9B%BE20190421200926.png"><br>sample文件夹中有示例程序<br><img src="sample.png">需要将transport.c和transport.h复制进项目的文件夹。<br>2. 移植的主要任务是实现transport中的四个函数。<img src="QQ%E6%88%AA%E5%9B%BE20190421201509.png"></p>
 <ul>
 <li>open函数原本用于打开socket通道。不过这个项目中使用的是透传的模式进行同信，所以只需要在函数中配置好8266的模式即可。</li>
 </ul>
@@ -196,8 +192,8 @@
     if(esp8266_one_send(&quot;TCP&quot;,addr,port,1))
         return -1;
     return 1;
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <pre><code>int esp8266_one_send(char *mode,char *ip,int port,int delay_mode){
     char tmp[40];
     //单连接模式
@@ -215,8 +211,8 @@
     if(!esp8266_command(&quot;AT+CIPSEND&quot;,delay_mode))
         return 1;
     return 0;
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>close函数用于关闭socket通道。通过at指令结束透传模式，然后关闭连接即可。</li>
 </ul>
 <hr>
@@ -234,8 +230,8 @@
     sendDataByUSART1(&quot;AT+CIPCLOSE&quot;,11);
     delay_ms(2000);
     return 0;
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>transport_sendPacketBuffer的实现</li>
 </ul>
 <hr>
@@ -250,8 +246,8 @@
         SEGGER_RTT_printf(0,&quot;%x&quot;,buf[i]);
     SEGGER_RTT_printf(0,&quot;\n&quot;);
     return rc;
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>transport_sendPacketBuffer 以阻塞的方法接收数据。不过我这里是通过中断接收，在这个函数中仅仅是复制接收到的数据的作用。</li>
 </ul>
 <hr>
@@ -278,8 +274,8 @@ int transport_getdata(unsigned char* buf, int count)
     rc = i -readBufLen;
     readBufLen = i;
     return rc;
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <ul>
 <li>另外需要实现的功能是定期发送PINGREQ 保持连接，在一段时间不发送数据也不发送PINGREQ就会造成mqtt服务器断开连接。在实现PINGREQ时要注意，在发送其他数据时要关中断或者关掉定时器。不然有概率会造成以下的错误<blockquote>
 <p>1552419065: Socket error on client NAME, disconnecting.</p>
@@ -368,7 +364,7 @@ int transport_getdata(unsigned char* buf, int count)
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/21/stm32-esp8266实现mqtt传输/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -383,7 +379,7 @@ int transport_getdata(unsigned char* buf, int count)
 <nav id="article-nav">
   
   
-    <a href="/2019/03/06/windows下的n2n客户端/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">windows下的n2n客户端</div>
       <i class="icon-circle-right"></i>
     </a>
@@ -514,7 +510,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,9 +12,8 @@
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
+<meta property="article:author" content="shubin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -32,8 +31,8 @@
 
   
 
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -43,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src class="js-avatar">
+			<img src="" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">shubin</a></h1>
@@ -55,7 +54,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/随笔/">随笔</a></li>
+				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -101,7 +100,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src class="js-avatar">
+				<img src="" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">shubin</h1>
@@ -135,7 +134,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -159,12 +158,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/21/stm32-esp8266实现mqtt传输/">stm32+esp8266实现mqtt传输</a>
+      <a class="article-title" href="/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/">stm32+esp8266实现mqtt传输</a>
     </h1>
   
 
         
-        <a href="/2019/04/21/stm32-esp8266实现mqtt传输/" class="archive-article-date">
+        <a href="/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/" class="archive-article-date">
   	<time datetime="2019-04-21T11:48:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-21</time>
 </a>
         
@@ -174,12 +173,9 @@
       
         <p>由于要在stm32上采集数据，有考虑到esp8266的可替换性，故采用stm32上运行mqtt客户端的方式实现数据的传输。</p>
 <ol>
-<li>下载需要用到的库<a href="https://github.com/eclipse/paho.mqtt.embedded-c" title="Paho" target="_blank" rel="noopener">Paho</a></li>
+<li>下载需要用到的库<a href="https://github.com/eclipse/paho.mqtt.embedded-c" target="_blank" rel="noopener" title="Paho">Paho</a></li>
 </ol>
-<p><img src="mqttpackage.png" alt><br>将下载到的MQTTPackage中的文件导入Keil项目中<br><img src="QQ截图20190421200926.png" alt><br>sample文件夹中有示例程序<br><img src="sample.png" alt>需要将transport.c和transport.h复制进项目的文件夹。</p>
-<ol start="2">
-<li>移植的主要任务是实现transport中的四个函数。<img src="QQ截图20190421201509.png" alt></li>
-</ol>
+<p><img src="mqttpackage.png"><br>将下载到的MQTTPackage中的文件导入Keil项目中<br><img src="QQ%E6%88%AA%E5%9B%BE20190421200926.png"><br>sample文件夹中有示例程序<br><img src="sample.png">需要将transport.c和transport.h复制进项目的文件夹。<br>2. 移植的主要任务是实现transport中的四个函数。<img src="QQ%E6%88%AA%E5%9B%BE20190421201509.png"></p>
 <ul>
 <li>open函数原本用于打开socket通道。不过这个项目中使用的是透传的模式进行同信，所以只需要在函数中配置好8266的模式即可。</li>
 </ul>
@@ -189,8 +185,8 @@
     if(esp8266_one_send(&quot;TCP&quot;,addr,port,1))
         return -1;
     return 1;
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <pre><code>int esp8266_one_send(char *mode,char *ip,int port,int delay_mode){
     char tmp[40];
     //单连接模式
@@ -208,8 +204,8 @@
     if(!esp8266_command(&quot;AT+CIPSEND&quot;,delay_mode))
         return 1;
     return 0;
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>close函数用于关闭socket通道。通过at指令结束透传模式，然后关闭连接即可。</li>
 </ul>
 <hr>
@@ -227,8 +223,8 @@
     sendDataByUSART1(&quot;AT+CIPCLOSE&quot;,11);
     delay_ms(2000);
     return 0;
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>transport_sendPacketBuffer的实现</li>
 </ul>
 <hr>
@@ -243,8 +239,8 @@
         SEGGER_RTT_printf(0,&quot;%x&quot;,buf[i]);
     SEGGER_RTT_printf(0,&quot;\n&quot;);
     return rc;
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>transport_sendPacketBuffer 以阻塞的方法接收数据。不过我这里是通过中断接收，在这个函数中仅仅是复制接收到的数据的作用。</li>
 </ul>
 <hr>
@@ -271,8 +267,8 @@ int transport_getdata(unsigned char* buf, int count)
     rc = i -readBufLen;
     readBufLen = i;
     return rc;
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <ul>
 <li>另外需要实现的功能是定期发送PINGREQ 保持连接，在一段时间不发送数据也不发送PINGREQ就会造成mqtt服务器断开连接。在实现PINGREQ时要注意，在发送其他数据时要关中断或者关掉定时器。不然有概率会造成以下的错误<blockquote>
 <p>1552419065: Socket error on client NAME, disconnecting.</p>
@@ -294,7 +290,7 @@ int transport_getdata(unsigned char* buf, int count)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/21/stm32-esp8266实现mqtt传输/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/21/stm32-esp8266%E5%AE%9E%E7%8E%B0mqtt%E4%BC%A0%E8%BE%93/">展开全文 >></a>
         </p>
       
 
@@ -331,12 +327,12 @@ int transport_getdata(unsigned char* buf, int count)
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/06/windows下的n2n客户端/">windows下的n2n客户端</a>
+      <a class="article-title" href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/">windows下的n2n客户端</a>
     </h1>
   
 
         
-        <a href="/2019/03/06/windows下的n2n客户端/" class="archive-article-date">
+        <a href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/" class="archive-article-date">
   	<time datetime="2019-03-06T05:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
 </a>
         
@@ -344,11 +340,11 @@ int transport_getdata(unsigned char* buf, int count)
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a href="/2019/03/06/windows下的n2n客户端/edge_v1.exe" title="edge_v1">edge_v1</a>
+        <a href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/edge_v1.exe" title="edge_v1">edge_v1</a>
 <hr>
-<a href="/2019/03/06/windows下的n2n客户端/edge_v2.exe" title="edge_v2">edge_v2</a>
+<a href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/edge_v2.exe" title="edge_v2">edge_v2</a>
 <hr>
-<a href="/2019/03/06/windows下的n2n客户端/edge_v2s.exe" title="edge_v2s">edge_v2s</a>
+<a href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/edge_v2s.exe" title="edge_v2s">edge_v2s</a>
       
 
       
@@ -360,7 +356,7 @@ int transport_getdata(unsigned char* buf, int count)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/06/windows下的n2n客户端/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/06/windows%E4%B8%8B%E7%9A%84n2n%E5%AE%A2%E6%88%B7%E7%AB%AF/">展开全文 >></a>
         </p>
       
 
@@ -397,12 +393,12 @@ int transport_getdata(unsigned char* buf, int count)
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/KindleEar部署过程和遇到的坑/">KindleEar部署过程和遇到的坑</a>
+      <a class="article-title" href="/2019/03/05/KindleEar%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E5%92%8C%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">KindleEar部署过程和遇到的坑</a>
     </h1>
   
 
         
-        <a href="/2019/03/05/KindleEar部署过程和遇到的坑/" class="archive-article-date">
+        <a href="/2019/03/05/KindleEar%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E5%92%8C%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" class="archive-article-date">
   	<time datetime="2019-03-05T14:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
 </a>
         
@@ -440,7 +436,7 @@ int transport_getdata(unsigned char* buf, int count)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/KindleEar部署过程和遇到的坑/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/05/KindleEar%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E5%92%8C%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">展开全文 >></a>
         </p>
       
 
@@ -477,12 +473,12 @@ int transport_getdata(unsigned char* buf, int count)
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/机房破解工具备份/">&#39;机房破解工具备份&#39;</a>
+      <a class="article-title" href="/2019/03/05/%E6%9C%BA%E6%88%BF%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7%E5%A4%87%E4%BB%BD/">&#39;机房破解工具备份&#39;</a>
     </h1>
   
 
         
-        <a href="/2019/03/05/机房破解工具备份/" class="archive-article-date">
+        <a href="/2019/03/05/%E6%9C%BA%E6%88%BF%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7%E5%A4%87%E4%BB%BD/" class="archive-article-date">
   	<time datetime="2019-03-05T14:12:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
 </a>
         
@@ -490,7 +486,7 @@ int transport_getdata(unsigned char* buf, int count)
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a href="/2019/03/05/机房破解工具备份/机房破解工具.rar" title="下载链接">下载链接</a>
+        <a href="/2019/03/05/%E6%9C%BA%E6%88%BF%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7%E5%A4%87%E4%BB%BD/%E6%9C%BA%E6%88%BF%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7.rar" title="下载链接">下载链接</a>
       
 
       
@@ -502,7 +498,7 @@ int transport_getdata(unsigned char* buf, int count)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/机房破解工具备份/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/05/%E6%9C%BA%E6%88%BF%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7%E5%A4%87%E4%BB%BD/">展开全文 >></a>
         </p>
       
 
@@ -539,12 +535,12 @@ int transport_getdata(unsigned char* buf, int count)
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/03/如何添加附件/">王道机试指南</a>
+      <a class="article-title" href="/2019/03/03/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E9%99%84%E4%BB%B6/">王道机试指南</a>
     </h1>
   
 
         
-        <a href="/2019/03/03/如何添加附件/" class="archive-article-date">
+        <a href="/2019/03/03/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E9%99%84%E4%BB%B6/" class="archive-article-date">
   	<time datetime="2019-03-03T13:42:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
 </a>
         
@@ -552,7 +548,8 @@ int transport_getdata(unsigned char* buf, int count)
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a href="/2019/03/03/如何添加附件/《王道论坛计算机考研机试指南》.pdf" title="下载链接">下载链接</a>
+        <a href="/2019/03/03/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E9%99%84%E4%BB%B6/%E3%80%8A%E7%8E%8B%E9%81%93%E8%AE%BA%E5%9D%9B%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E7%A0%94%E6%9C%BA%E8%AF%95%E6%8C%87%E5%8D%97%E3%80%8B.pdf" title="下载链接">下载链接</a>
+
 <hr>
 <h2 id="A-B问题"><a href="#A-B问题" class="headerlink" title="A^B问题"></a>A^B问题</h2><pre><code>#include &lt;stdio.h&gt;
 
@@ -575,8 +572,8 @@ int main(){
     printf(&quot;%d\n&quot;,ans);
 }
 return 0;
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <pre><code>int main(){
     int a,b;
     int ans = 1;
@@ -591,8 +588,8 @@ return 0;
         }
         printf(&quot;%d\n&quot;,ans);
     }
-}
-</code></pre><ul>
+}</code></pre>
+<ul>
 <li>在A^B次方问题中，如果问题要求的最终结果较大并且，取后几位，可以通过取模取得后几位。最后几位的n次方结果取决于底数的最后几位，这很好理解。</li>
 <li>将指数的幂转化为二进制，能够降低运算的时间复杂度。</li>
 </ul>
@@ -614,11 +611,11 @@ void set(char str[]){
     int c=1;
     for(int i=strlen(str)-1,j=0;i&gt;=0;i--) {
         if(c == 1) j ++;
-        if(str[i] == &apos;-&apos;) {
+        if(str[i] == &#39;-&#39;) {
             symbol = 1;
             continue; 
         }
-        digit[j-1] += (str[i] - &apos;0&apos;) * c;
+        digit[j-1] += (str[i] - &#39;0&#39;) * c;
         c *= 10;
         if(c == 10000) {
             c= 1;
@@ -669,8 +666,8 @@ int main(){
          c.output();
      }
      return 0;
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <pre><code>#include &lt;stdio.h&gt;
 
 struct bigInteger{
@@ -724,8 +721,8 @@ int main(){
     }
     return 0;
 
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <h2 id="高精度进制转换"><a href="#高精度进制转换" class="headerlink" title="高精度进制转换"></a>高精度进制转换</h2><pre><code>#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 #define maxDigits 1000
@@ -821,18 +818,18 @@ int main(){
         b.set(1);
         for(int i=L - 1;i&gt;= 0;i--){
             int t;
-            if(str[i] &gt;= &apos;0&apos; &amp;&amp; str[i] &lt;= &apos;9&apos;){
-                t = str[i] - &apos;0&apos;;
+            if(str[i] &gt;= &#39;0&#39; &amp;&amp; str[i] &lt;= &#39;9&#39;){
+                t = str[i] - &#39;0&#39;;
             }
-            else t =str[i] - &apos;A&apos; + 10;
+            else t =str[i] - &#39;A&#39; + 10;
             a = a + b * t;
             b = b * m;
         }
         int size = 0;
         do{
             int t = a % n;
-            if(t &gt;= 10) ans[size ++] = t- 10 + &apos;a&apos;;
-            else ans[size ++] = t + &apos;0&apos;;
+            if(t &gt;= 10) ans[size ++] = t- 10 + &#39;a&#39;;
+            else ans[size ++] = t + &#39;0&#39;;
             a = a / n;
         }while(a.digit[0] != 0 || a.size != 1);
         for(int i = size - 1;i &gt;= 0;i -- ) printf(&quot;%c&quot;,ans[i]);
@@ -840,8 +837,8 @@ int main(){
     }
     return 0;
 
-}
-</code></pre><hr>
+}</code></pre>
+<hr>
 <h2 id="大数求余数问题"><a href="#大数求余数问题" class="headerlink" title="大数求余数问题"></a>大数求余数问题</h2><pre><code>#include &lt;stdio.h&gt;
 
 int main(){
@@ -850,12 +847,12 @@ int main(){
     int mod = 10; 
     for(int i=0;str[i];i++){
         ans *= 10;
-        ans += str[i] - &apos;0&apos;;
+        ans += str[i] - &#39;0&#39;;
         ans %= mod;
     }
     printf(&quot;%d\n&quot;,ans);
-}
-</code></pre><p>#vector的一些用法</p>
+}</code></pre>
+<p>#vector的一些用法</p>
 <pre><code>#define N 1000
 using namespace std;
 struct Edge{
@@ -879,8 +876,8 @@ int main(){
     } 
     edge[2].erase(edge[2].begin() + 0,edge[2].begin()+0+1);
     return 1;
-}
-</code></pre><h2 id="动态规划问题"><a href="#动态规划问题" class="headerlink" title="动态规划问题"></a>动态规划问题</h2>
+}</code></pre>
+<h2 id="动态规划问题"><a href="#动态规划问题" class="headerlink" title="动态规划问题"></a>动态规划问题</h2>
       
 
       
@@ -892,7 +889,7 @@ int main(){
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/03/如何添加附件/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/03/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E9%99%84%E4%BB%B6/">展开全文 >></a>
         </p>
       
 
@@ -1019,7 +1016,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
