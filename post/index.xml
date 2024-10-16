@@ -7,33 +7,29 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Wed, 16 Oct 2024 16:44:55 +0800</lastBuildDate><atom:link href="https://898311543.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>测试post</title>
+        <title>ffmpeg命令</title>
         <link>https://898311543.github.io/post/first/</link>
         <pubDate>Wed, 16 Oct 2024 16:44:55 +0800</pubDate>
         
         <guid>https://898311543.github.io/post/first/</guid>
         <description>&lt;h2 id=&#34;ffmpeg命令&#34;&gt;ffmpeg命令
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/1725547140054.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;1725547140054&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/1725547140054.png&#34; alt=&#39;1725547140054&#39; /&gt;
+&lt;/p&gt;
 &lt;h3 id=&#34;ffmpeg-处理音视频流程&#34;&gt;ffmpeg 处理音视频流程
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240905224438715.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20240905224438715&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20240905224438715.png&#34; alt=&#39;image-20240905224438715&#39; /&gt;
+&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;输入文件具有封装格式（将这个封装格式打开称之为解封装）-&amp;gt;解出来的格式也是编码之后的&lt;/p&gt;
@@ -49,39 +45,33 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;ffmpeg命令分类&#34;&gt;ffmpeg命令分类
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/1725549272444.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;1725549272444&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/1725549351267.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;1725549351267&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/1725549272444.png&#34; alt=&#39;1725549272444&#39; /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/1725549351267.png&#34; alt=&#39;1725549351267&#39; /&gt;
+&lt;/p&gt;
 &lt;h2 id=&#34;录制命令&#34;&gt;录制命令
 &lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffmpeg -list_devices true -f dshow -i dummy
 &lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffmpeg -f dshow -i video=&amp;#34;USB2.0 HD UVC WebCam&amp;#34; -vcodec libx264 -preset ultrafast desktop.mkv
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240906224126914.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20240906224126914&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20240906224126914.png&#34; alt=&#39;image-20240906224126914&#39; /&gt;
+&lt;/p&gt;
 &lt;p&gt;&lt;code&gt; ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;处理原始数据&#34;&gt;处理原始数据
@@ -95,16 +85,14 @@
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffplay -ar 44100 -f s16le out.pcm
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;滤镜命令&#34;&gt;滤镜命令
 &lt;/h2&gt;&lt;p&gt;使用滤镜要使用解码后的数据，压缩后的数据是无法处理的：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240907151620144.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20240907151620144&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20240907151620144.png&#34; alt=&#39;image-20240907151620144&#39; /&gt;
+&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;视频画面裁剪命令&lt;/p&gt;
@@ -313,16 +301,9 @@ _ERROR:
     
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240911005025395.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20240911005025395&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20240911005025395.png&#34; alt=&#39;image-20240911005025395&#39; /&gt;
+&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;lt;libavutil/log.h&amp;gt;
 #include &amp;lt;libavutil/avutil.h&amp;gt;
@@ -448,16 +429,14 @@ _ERROR:
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;视频裁剪&#34;&gt;视频裁剪
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240912002846369.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20240912002846369&#34;
-	
-	
-&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20240912002846369.png&#34; alt=&#39;image-20240912002846369&#39; /&gt;
+&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;lt;libavutil/log.h&amp;gt;
 #include &amp;lt;libavutil/avutil.h&amp;gt;
