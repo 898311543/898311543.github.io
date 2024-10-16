@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="ffmpeg命令">
 <meta property='og:description' content="ffmpeg命令\rffmpeg 处理音视频流程\r输入文件具有封装格式（将这个封装格式打开称之为解封装）-&gt;解出来的格式也是编码之后的\n编码后的数据可以进行解码，解码之后得到解码后的数据帧\n数据帧encode之后可以得到编码数据包\n编码之后可以输出想要的格式\nffmpeg命令分类\r录制命令\rffmpeg -list_devices true -f dshow -i dummy ffmpeg -f dshow -i video=&#34;USB2.0 HD UVC WebCam&#34; -vcodec libx264 -preset ultrafast desktop.mkv ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3\n处理原始数据\r生成原始数据：\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -an -c:v rawvideo -pix_fmt yuv420p out.yuv 由于原始数据中不包含分辨率信息，需要手动指定：\nffplay -video_size 768x576 out.yuv ffmpeg提取pcm数据：\nffmpeg -i 东周列国：春秋篇.EP01.flv -vn -ar 44100 -ac 2 -f s16le out.pcm 因为不含采样率、存储方式等信息所以无法直接播放，应使用：\n">
 <meta property='og:url' content='https://898311543.github.io/post/first/'>
-<meta property='og:site_name' content='My New Hugo Site'>
+<meta property='og:site_name' content='Shubin'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-10-16T16:44:55&#43;08:00'/><meta property='article:modified_time' content='2024-10-16T16:44:55&#43;08:00'/>
 <meta name="twitter:title" content="ffmpeg命令">
 <meta name="twitter:description" content="ffmpeg命令\rffmpeg 处理音视频流程\r输入文件具有封装格式（将这个封装格式打开称之为解封装）-&gt;解出来的格式也是编码之后的\n编码后的数据可以进行解码，解码之后得到解码后的数据帧\n数据帧encode之后可以得到编码数据包\n编码之后可以输出想要的格式\nffmpeg命令分类\r录制命令\rffmpeg -list_devices true -f dshow -i dummy ffmpeg -f dshow -i video=&#34;USB2.0 HD UVC WebCam&#34; -vcodec libx264 -preset ultrafast desktop.mkv ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3\n处理原始数据\r生成原始数据：\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -an -c:v rawvideo -pix_fmt yuv420p out.yuv 由于原始数据中不包含分辨率信息，需要手动指定：\nffplay -video_size 768x576 out.yuv ffmpeg提取pcm数据：\nffmpeg -i 东周列国：春秋篇.EP01.flv -vn -ar 44100 -ac 2 -f s16le out.pcm 因为不含采样率、存储方式等信息所以无法直接播放，应使用：\n">
@@ -67,7 +67,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">My New Hugo Site</a></h1>
+            <h1 class="site-name"><a href="/">Shubin</a></h1>
             <h2 class="site-description"></h2>
         </div>
     </header><ol class="menu" id="main-menu">
@@ -770,7 +770,7 @@ _ERROR:
     <section class="copyright">
         &copy; 
         
-        2024 My New Hugo Site
+        2024 Shubin
     </section>
     
     <section class="powerby">
