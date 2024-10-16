@@ -6,7 +6,74 @@
         <description>Recent content on Shubin</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 16 Oct 2024 16:44:55 +0800</lastBuildDate><atom:link href="https://898311543.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 17 Oct 2024 01:02:59 +0800</lastBuildDate><atom:link href="https://898311543.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Ffmpeg_medium</title>
+        <link>https://898311543.github.io/post/ffmpeg_medium/</link>
+        <pubDate>Thu, 17 Oct 2024 01:02:59 +0800</pubDate>
+        
+        <guid>https://898311543.github.io/post/ffmpeg_medium/</guid>
+        <description>&lt;h1 id=&#34;ffmpeg中级开发&#34;&gt;ffmpeg中级开发
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;H264解码&lt;/li&gt;
+&lt;li&gt;H264编码&lt;/li&gt;
+&lt;li&gt;AAC编码&lt;/li&gt;
+&lt;li&gt;AAC解码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;常见结构体&#34;&gt;常见结构体
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;libavcodec/avcodec.h //头文件 编解码
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;AVCodec 编码器结构体
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;avcodec_alloc_context3()&lt;/code&gt; &lt;code&gt;avcodec_free_context()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;AVCodecContext编解码器上下文 串联不同的函数之间的上下文&lt;/li&gt;
+&lt;li&gt;AVFrame 解码后的帧
+&lt;ul&gt;
+&lt;li&gt;结构体的分配与释放：&lt;code&gt;av_frame_alloc() av_frame_free()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;解码步骤&#34;&gt;解码步骤
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查找解码器（&lt;code&gt;avcodec_find_decoder&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开解码器（&lt;code&gt;avcodec_open2&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解码（&lt;code&gt;avcodec_decode_video2&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;libavutil/log.h&amp;gt;
+#include &amp;lt;libavformat/avformat.h&amp;gt;
+#include &amp;lt;libavcodec/avcodec.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char** argv){
+    AVCodec *codec;
+    av_log_set_level(AV_LOG_DEBUG);
+    if(argc &amp;lt; 3){
+        printf(&amp;#34;Usage: %s &amp;lt;file&amp;gt; &amp;lt;codecname&amp;gt;\n&amp;#34;, argv[0]);
+        goto _ERROR;
+    }
+    char* dst = argv[1];
+    char* codecname = argv[2];
+    // 2、查找编码器
+    codec = avcodec_find_encoder_by_name(codecname);
+    if(!codec){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t find codec %s&amp;#34;,codecname);
+        goto _ERROR;
+    }
+
+    _ERROR:
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
         <title>ffmpeg命令</title>
         <link>https://898311543.github.io/post/ffmpeg_command/</link>
         <pubDate>Wed, 16 Oct 2024 16:44:55 +0800</pubDate>
