@@ -2,16 +2,16 @@
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="ffmpeg中级开发\rH264解码 H264编码 AAC编码 AAC解码 常见结构体\rlibavcodec/avcodec.h //头文件 编解码 AVCodec 编码器结构体 avcodec_alloc_context3() avcodec_free_context() AVCodecContext编解码器上下文 串联不同的函数之间的上下文 AVFrame 解码后的帧 结构体的分配与释放：av_frame_alloc() av_frame_free() 解码步骤\r查找解码器（avcodec_find_decoder）\n打开解码器（avcodec_open2）\n解码（avcodec_decode_video2）\n#include &lt;libavutil/log.h&gt;\r#include &lt;libavformat/avformat.h&gt;\r#include &lt;libavcodec/avcodec.h&gt;\r#include &lt;stdio.h&gt;\rint main(int argc, char** argv){\rAVCodec *codec;\rav_log_set_level(AV_LOG_DEBUG);\rif(argc &lt; 3){\rprintf(&#34;Usage: %s &lt;file&gt; &lt;codecname&gt;\\n&#34;, argv[0]);\rgoto _ERROR;\r}\rchar* dst = argv[1];\rchar* codecname = argv[2];\r// 2、查找编码器\rcodec = avcodec_find_encoder_by_name(codecname);\rif(!codec){\rav_log(NULL,AV_LOG_ERROR,&#34;coundn&#39;t find codec %s&#34;,codecname);\rgoto _ERROR;\r}\r_ERROR:\rreturn 0;\r} ">
-<title>Ffmpeg_medium</title>
+<title>ffmpeg中级开发</title>
 
 <link rel='canonical' href='https://898311543.github.io/post/ffmpeg_medium/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Ffmpeg_medium">
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="ffmpeg中级开发">
 <meta property='og:description' content="ffmpeg中级开发\rH264解码 H264编码 AAC编码 AAC解码 常见结构体\rlibavcodec/avcodec.h //头文件 编解码 AVCodec 编码器结构体 avcodec_alloc_context3() avcodec_free_context() AVCodecContext编解码器上下文 串联不同的函数之间的上下文 AVFrame 解码后的帧 结构体的分配与释放：av_frame_alloc() av_frame_free() 解码步骤\r查找解码器（avcodec_find_decoder）\n打开解码器（avcodec_open2）\n解码（avcodec_decode_video2）\n#include &lt;libavutil/log.h&gt;\r#include &lt;libavformat/avformat.h&gt;\r#include &lt;libavcodec/avcodec.h&gt;\r#include &lt;stdio.h&gt;\rint main(int argc, char** argv){\rAVCodec *codec;\rav_log_set_level(AV_LOG_DEBUG);\rif(argc &lt; 3){\rprintf(&#34;Usage: %s &lt;file&gt; &lt;codecname&gt;\\n&#34;, argv[0]);\rgoto _ERROR;\r}\rchar* dst = argv[1];\rchar* codecname = argv[2];\r// 2、查找编码器\rcodec = avcodec_find_encoder_by_name(codecname);\rif(!codec){\rav_log(NULL,AV_LOG_ERROR,&#34;coundn&#39;t find codec %s&#34;,codecname);\rgoto _ERROR;\r}\r_ERROR:\rreturn 0;\r} ">
 <meta property='og:url' content='https://898311543.github.io/post/ffmpeg_medium/'>
 <meta property='og:site_name' content='Shubin'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-10-17T01:02:59&#43;08:00'/><meta property='article:modified_time' content='2024-10-17T01:02:59&#43;08:00'/>
-<meta name="twitter:title" content="Ffmpeg_medium">
+<meta name="twitter:title" content="ffmpeg中级开发">
 <meta name="twitter:description" content="ffmpeg中级开发\rH264解码 H264编码 AAC编码 AAC解码 常见结构体\rlibavcodec/avcodec.h //头文件 编解码 AVCodec 编码器结构体 avcodec_alloc_context3() avcodec_free_context() AVCodecContext编解码器上下文 串联不同的函数之间的上下文 AVFrame 解码后的帧 结构体的分配与释放：av_frame_alloc() av_frame_free() 解码步骤\r查找解码器（avcodec_find_decoder）\n打开解码器（avcodec_open2）\n解码（avcodec_decode_video2）\n#include &lt;libavutil/log.h&gt;\r#include &lt;libavformat/avformat.h&gt;\r#include &lt;libavcodec/avcodec.h&gt;\r#include &lt;stdio.h&gt;\rint main(int argc, char** argv){\rAVCodec *codec;\rav_log_set_level(AV_LOG_DEBUG);\rif(argc &lt; 3){\rprintf(&#34;Usage: %s &lt;file&gt; &lt;codecname&gt;\\n&#34;, argv[0]);\rgoto _ERROR;\r}\rchar* dst = argv[1];\rchar* codecname = argv[2];\r// 2、查找编码器\rcodec = avcodec_find_encoder_by_name(codecname);\rif(!codec){\rav_log(NULL,AV_LOG_ERROR,&#34;coundn&#39;t find codec %s&#34;,codecname);\rgoto _ERROR;\r}\r_ERROR:\rreturn 0;\r} ">
     </head>
     <body class="
@@ -113,7 +113,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/ffmpeg_medium/">Ffmpeg_medium</a>
+            <a href="/post/ffmpeg_medium/">ffmpeg中级开发</a>
         </h2>
     
         
