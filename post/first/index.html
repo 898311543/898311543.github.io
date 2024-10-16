@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="测试标题 测试2 ">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="ffmpeg命令\rffmpeg 处理音视频流程\r输入文件具有封装格式（将这个封装格式打开称之为解封装）-&gt;解出来的格式也是编码之后的\n编码后的数据可以进行解码，解码之后得到解码后的数据帧\n数据帧encode之后可以得到编码数据包\n编码之后可以输出想要的格式\nffmpeg命令分类\r录制命令\rffmpeg -list_devices true -f dshow -i dummy ffmpeg -f dshow -i video=&#34;USB2.0 HD UVC WebCam&#34; -vcodec libx264 -preset ultrafast desktop.mkv ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3\n处理原始数据\r生成原始数据：\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -an -c:v rawvideo -pix_fmt yuv420p out.yuv 由于原始数据中不包含分辨率信息，需要手动指定：\nffplay -video_size 768x576 out.yuv ffmpeg提取pcm数据：\nffmpeg -i 东周列国：春秋篇.EP01.flv -vn -ar 44100 -ac 2 -f s16le out.pcm 因为不含采样率、存储方式等信息所以无法直接播放，应使用：\n">
 <title>测试post</title>
 
 <link rel='canonical' href='https://898311543.github.io/post/first/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="测试post">
-<meta property='og:description' content="测试标题 测试2 ">
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="测试post">
+<meta property='og:description' content="ffmpeg命令\rffmpeg 处理音视频流程\r输入文件具有封装格式（将这个封装格式打开称之为解封装）-&gt;解出来的格式也是编码之后的\n编码后的数据可以进行解码，解码之后得到解码后的数据帧\n数据帧encode之后可以得到编码数据包\n编码之后可以输出想要的格式\nffmpeg命令分类\r录制命令\rffmpeg -list_devices true -f dshow -i dummy ffmpeg -f dshow -i video=&#34;USB2.0 HD UVC WebCam&#34; -vcodec libx264 -preset ultrafast desktop.mkv ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3\n处理原始数据\r生成原始数据：\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -an -c:v rawvideo -pix_fmt yuv420p out.yuv 由于原始数据中不包含分辨率信息，需要手动指定：\nffplay -video_size 768x576 out.yuv ffmpeg提取pcm数据：\nffmpeg -i 东周列国：春秋篇.EP01.flv -vn -ar 44100 -ac 2 -f s16le out.pcm 因为不含采样率、存储方式等信息所以无法直接播放，应使用：\n">
 <meta property='og:url' content='https://898311543.github.io/post/first/'>
 <meta property='og:site_name' content='My New Hugo Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-10-16T16:44:55&#43;08:00'/><meta property='article:modified_time' content='2024-10-16T16:44:55&#43;08:00'/>
 <meta name="twitter:title" content="测试post">
-<meta name="twitter:description" content="测试标题 测试2 ">
+<meta name="twitter:description" content="ffmpeg命令\rffmpeg 处理音视频流程\r输入文件具有封装格式（将这个封装格式打开称之为解封装）-&gt;解出来的格式也是编码之后的\n编码后的数据可以进行解码，解码之后得到解码后的数据帧\n数据帧encode之后可以得到编码数据包\n编码之后可以输出想要的格式\nffmpeg命令分类\r录制命令\rffmpeg -list_devices true -f dshow -i dummy ffmpeg -f dshow -i video=&#34;USB2.0 HD UVC WebCam&#34; -vcodec libx264 -preset ultrafast desktop.mkv ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3\n处理原始数据\r生成原始数据：\nffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -an -c:v rawvideo -pix_fmt yuv420p out.yuv 由于原始数据中不包含分辨率信息，需要手动指定：\nffplay -video_size 768x576 out.yuv ffmpeg提取pcm数据：\nffmpeg -i 东周列国：春秋篇.EP01.flv -vn -ar 44100 -ac 2 -f s16le out.pcm 因为不含采样率、存储方式等信息所以无法直接播放，应使用：\n">
     </head>
     <body class="
     article-page
@@ -150,7 +150,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    7 minute read
                 </time>
             </div>
         
@@ -165,9 +165,607 @@
     <section class="article-content">
     
     
-    <h2 id="测试标题">测试标题
-</h2><h3 id="测试2">测试2
-</h3>
+    <h2 id="ffmpeg命令">ffmpeg命令
+</h2><p><img src="http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/1725547140054.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="1725547140054"
+	
+	
+></p>
+<h3 id="ffmpeg-处理音视频流程">ffmpeg 处理音视频流程
+</h3><p><img src="http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/image-20240905224438715.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240905224438715"
+	
+	
+></p>
+<ul>
+<li>
+<p>输入文件具有封装格式（将这个封装格式打开称之为解封装）-&gt;解出来的格式也是编码之后的</p>
+</li>
+<li>
+<p>编码后的数据可以进行解码，解码之后得到解码后的数据帧</p>
+</li>
+<li>
+<p>数据帧encode之后可以得到编码数据包</p>
+</li>
+<li>
+<p>编码之后可以输出想要的格式</p>
+</li>
+</ul>
+<h2 id="ffmpeg命令分类">ffmpeg命令分类
+</h2><p><img src="http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/1725549272444.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="1725549272444"
+	
+	
+></p>
+<p><img src="http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/1725549351267.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="1725549351267"
+	
+	
+></p>
+<h2 id="录制命令">录制命令
+</h2><pre tabindex="0"><code>ffmpeg -list_devices true -f dshow -i dummy
+</code></pre><pre tabindex="0"><code>ffmpeg -f dshow -i video=&#34;USB2.0 HD UVC WebCam&#34; -vcodec libx264 -preset ultrafast desktop.mkv
+</code></pre><p><img src="http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/image-20240906224126914.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240906224126914"
+	
+	
+></p>
+<p><code> ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vcodec copy -acodec copy a.mp4</code></p>
+<p><code>ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -vn -acodec copy a.ac3</code></p>
+<h2 id="处理原始数据">处理原始数据
+</h2><p>生成原始数据：</p>
+<pre tabindex="0"><code>ffmpeg -i 东周列国：春秋篇.EP01.1996.DVDRip.x264.AC3-CMCT.mkv -an -c:v rawvideo -pix_fmt yuv420p out.yuv
+</code></pre><p>由于原始数据中不包含分辨率信息，需要手动指定：</p>
+<pre tabindex="0"><code>ffplay -video_size 768x576  out.yuv
+</code></pre><p>ffmpeg提取pcm数据：</p>
+<pre tabindex="0"><code>ffmpeg -i 东周列国：春秋篇.EP01.flv -vn -ar 44100 -ac 2 -f s16le out.pcm
+</code></pre><p>因为不含采样率、存储方式等信息所以无法直接播放，应使用：</p>
+<pre tabindex="0"><code>ffplay -ar 44100 -f s16le out.pcm
+</code></pre><h2 id="滤镜命令">滤镜命令
+</h2><p>使用滤镜要使用解码后的数据，压缩后的数据是无法处理的：</p>
+<p><img src="http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/image-20240907151620144.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240907151620144"
+	
+	
+></p>
+<ul>
+<li>
+<p>视频画面裁剪命令</p>
+<ul>
+<li><code> ffmpeg -i 东周列国：春秋篇.EP01.flv -vf crop=in_w-400:in_h-200 -c:v libx264 -c:a copy out.mp4</code></li>
+<li><code>ffmpeg -c:v h264_cuvid -crop 10x100x10x100 -i 东周列国：春秋篇.EP01.flv -c:v h264_nvenc -c:a copy out.mp4</code></li>
+</ul>
+</li>
+<li>
+<p>视频长度裁剪命令</p>
+<ul>
+<li><code>ffmpeg -c:v h264_cuvid -crop 10x100x10x100 -i 东周列国：春秋篇.EP01.flv -ss 00:02:00 -t 10 -c:v h264_nvenc -c:a copy out.mp4 </code></li>
+<li>ss指的是裁剪开始的时间 -t指的是视频持续的时间</li>
+</ul>
+</li>
+<li>
+<p>ffmpeg音视频合并</p>
+<ul>
+<li>
+<pre tabindex="0"><code>ffmpeg -f concat -i input.txt out.flv
+</code></pre></li>
+<li>
+<p>input.txt内容为‘file filename’格式</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="图片和视频互转">图片和视频互转
+</h2><ul>
+<li>
+<p>视频转图片</p>
+<ul>
+<li>ffmpeg -i in.flv -r 1 -f image2 image-%3d.jpeg</li>
+</ul>
+</li>
+<li>
+<p>图片转视频</p>
+<ul>
+<li>ffmpeg -i image-%3d.jpeg out.mp4</li>
+</ul>
+</li>
+</ul>
+<h2 id="直播推拉流">直播推/拉流
+</h2><ul>
+<li>直播推流
+<ul>
+<li>ffmpeg -re -i out.mp4 -c copy -f flv rtmp://server/live/streamName
+<ul>
+<li>-re 减慢速度 以实际播放速度进行推流</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>直播拉流
+<ul>
+<li>ffmpeg -i rtmp://server/live/streamName -c copy dump.flv</li>
+</ul>
+</li>
+</ul>
+<h1 id="ffmpeg-初级开发">FFMPEG 初级开发
+</h1><h2 id="代码结构">代码结构
+</h2><h3 id="日志系统">日志系统
+</h3><pre tabindex="0"><code>#include &lt;libavutil/log.h&gt; //引入头文件
+av_log_set_level(AV_LOG_DEBUG) //设置日志级别
+av_log(NULL,AV_LOG_INFO,&#34;...%s\n&#34;,op)  //输入日志
+</code></pre><ul>
+<li>日志级别：AV_LOG_ERROR、AV_LOG_WARNING、AV_LOG_INFO、AV_LOG_DEBUG</li>
+</ul>
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;libavutil/log.h&gt;
+
+int main(int argc, char *argv[]){
+    av_log_set_level(AV_LOG_ERROR);
+    av_log(NULL, AV_LOG_INFO, &#34;hello world\n&#34;);
+    return 0;
+}
+</code></pre><h2 id="多媒体文件的基本概念">多媒体文件的基本概念
+</h2><ul>
+<li>
+<p>多媒体文件其实是个容器</p>
+</li>
+<li>
+<p>在容器中有很多流（Stream/Track）</p>
+</li>
+<li>
+<p>每个流是由不同的编码器编码的、</p>
+</li>
+<li>
+<p>流里抽出来的数据成为包</p>
+</li>
+<li>
+<p>在一个包里包含着一个或多个帧</p>
+</li>
+</ul>
+<h3 id="几个重要的结构体">几个重要的结构体
+</h3><ul>
+<li>AVFormatContext 容器</li>
+<li>AVStream 流或者轨</li>
+<li>AVPacket 包</li>
+</ul>
+<h3 id="ffmpeg操作数据的基本步骤">FFmpeg操作数据的基本步骤
+</h3><ol>
+<li>解复用</li>
+<li>获取流</li>
+<li>读数据包</li>
+<li>释放资源</li>
+</ol>
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;libavutil/log.h&gt;
+#include &lt;libavutil/avutil.h&gt;
+#include &lt;libavformat/avio.h&gt;
+#include &lt;libavformat/avformat.h&gt;
+
+int main(int argc, char *argv[]){
+    // 1、处理一些参数
+    // 2、打开文件
+    // 3、从多媒体文件中找到音频流
+    // 4、打开目的文件的上下文
+    // 5、为目的文件打开音频流
+    // 6、设置输出音频参数
+    // 7、写多媒体文件头
+    // 8、循环读取音频流，写入目的文件
+    // 9、写文件尾
+    // 10、 释放资源
+
+    char* src;
+    char* dst;
+    AVFormatContext *fmt_ctx, *ofmt_ctx;
+    AVOutputFormat *outFmt;
+    AVStream *in_stream = NULL, *out_stream = NULL;
+    AVPacket pkt;
+    int index = -1;
+    av_log_set_level(AV_LOG_DEBUG);
+    if (argc &lt; 3) {
+        printf(&#34;Usage: %s &lt;input file&gt; &lt;output file&gt;\n&#34;, argv[0]);
+        exit(1);
+    }
+    src = argv[1];
+    dst = argv[2];
+    // 第一个null 表示相关的格式 最后一个参数为选项 如果返回值为负值表示失败
+    int ret = avformat_open_input(&amp;fmt_ctx, src, NULL, NULL);
+    if (ret &lt; 0) {
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not open source file %s\n&#34;, src);
+        exit(1);
+    }
+    index = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
+    if(index &lt; 0){
+        // 第一参数可以指定为上下文
+        av_log(fmt_ctx, AV_LOG_ERROR, &#34;Could not find %s stream in input file %s\n&#34;, av_get_media_type_string(AVMEDIA_TYPE_AUDIO), src);
+        goto _ERROR;
+    }
+    ofmt_ctx = avformat_alloc_context();
+    if(ofmt_ctx == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not allocate output context\n&#34;);
+        goto _ERROR;
+    }
+    outFmt = av_guess_format(NULL, dst, NULL);
+    if(outFmt == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not find %s format\n&#34;, dst);
+        goto _ERROR;
+    }
+    ofmt_ctx-&gt;oformat = outFmt;
+    in_stream = fmt_ctx-&gt;streams[index];
+    out_stream = avformat_new_stream(ofmt_ctx, NULL);
+    if(out_stream == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not allocate output stream\n&#34;);
+        goto _ERROR;
+    }
+    avcodec_parameters_copy(out_stream-&gt;codecpar, in_stream-&gt;codecpar);
+    // 会根据输出文件类型设置编码器
+    out_stream-&gt;codecpar-&gt;codec_tag = 0;
+    ret = avio_open2(&amp;ofmt_ctx-&gt;pb, dst, AVIO_FLAG_WRITE, NULL, NULL);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not open output file %s\n&#34;, dst);
+        goto _ERROR;
+    }
+    ret = avformat_write_header(ofmt_ctx, NULL);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Error write header \n&#34;);
+        goto _ERROR;
+    }
+    while(av_read_frame(fmt_ctx, &amp;pkt) &gt;= 0){
+        if(pkt.stream_index == index){
+            pkt.stream_index = 0;
+            pkt.pts = av_rescale_q_rnd(pkt.pts, in_stream-&gt;time_base, out_stream-&gt;time_base, AV_ROUND_NEAR_INF|AV_ROUND_PASS_MINMAX);
+            pkt.dts = pkt.dts;
+            pkt.duration = av_rescale_q(pkt.duration, in_stream-&gt;time_base, out_stream-&gt;time_base);
+            pkt.pos = -1;
+            av_interleaved_write_frame(ofmt_ctx, &amp;pkt);
+            av_packet_unref(&amp;pkt);
+        }
+    }
+    av_write_trailer(ofmt_ctx); 
+
+_ERROR:
+    if(fmt_ctx != NULL){
+        avformat_close_input(&amp;fmt_ctx);
+    }
+    if(ofmt_ctx != NULL){
+        avformat_free_context(ofmt_ctx);
+    }
+    if (ofmt_ctx-&gt;pb)
+    {
+        avio_close(ofmt_ctx-&gt;pb);
+    }
+    
+    return 0;
+}
+</code></pre><p><img src="http://hass.898311.xyz:8200/d/%E6%9C%AC%E5%9C%B0/%E5%9B%BE%E7%89%87/image-20240911005025395.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240911005025395"
+	
+	
+></p>
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;libavutil/log.h&gt;
+#include &lt;libavutil/avutil.h&gt;
+#include &lt;libavformat/avio.h&gt;
+#include &lt;libavformat/avformat.h&gt;
+
+int main(int argc, char *argv[]){
+    // 1、处理一些参数
+    // 2、打开文件
+    // 3、从多媒体文件中找到音频流
+    // 4、打开目的文件的上下文
+    // 5、为目的文件打开音频流
+    // 6、设置输出音频参数
+    // 7、写多媒体文件头
+    // 8、循环读取音频流，写入目的文件
+    // 9、写文件尾
+    // 10、 释放资源
+
+    char* src;
+    char* dst;
+    AVFormatContext *fmt_ctx=NULL, *ofmt_ctx=NULL;
+    AVOutputFormat *outFmt;
+    AVStream *in_stream = NULL, *out_stream = NULL;
+    AVPacket pkt;
+    int index = 0;
+    int *stream_map = NULL;
+    int i;
+    av_log_set_level(AV_LOG_DEBUG);
+    if (argc &lt; 3) {
+        printf(&#34;Usage: %s &lt;input file&gt; &lt;output file&gt;\n&#34;, argv[0]);
+        exit(1);
+    }
+    src = argv[1];
+    dst = argv[2];
+    // 第一个null 表示相关的格式 最后一个参数为选项 如果返回值为负值表示失败
+    int ret = avformat_open_input(&amp;fmt_ctx, src, NULL, NULL);
+    if (ret &lt; 0) {
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not open source file %s\n&#34;, src);
+        exit(1);
+    }
+    // index = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
+    // if(index &lt; 0){
+    //     // 第一参数可以指定为上下文
+    //     av_log(fmt_ctx, AV_LOG_ERROR, &#34;Could not find %s stream in input file %s\n&#34;, av_get_media_type_string(AVMEDIA_TYPE_AUDIO), src);
+    //     goto _ERROR;
+    // }
+    avformat_alloc_output_context2(&amp;ofmt_ctx, NULL, NULL, dst);
+    if(ofmt_ctx == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not allocate output context\n&#34;);
+        goto _ERROR;
+    }
+    stream_map= av_calloc(fmt_ctx-&gt;nb_streams, sizeof(*stream_map)); 
+    if(stream_map == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not allocate stream map\n&#34;);
+        goto _ERROR;
+    }
+    for(i = 0; i &lt; fmt_ctx-&gt;nb_streams; i++){
+        stream_map[i] = i;
+    }   
+    for (i = 0; i &lt; fmt_ctx-&gt;nb_streams; i++){
+        in_stream = fmt_ctx-&gt;streams[i];
+        AVCodecParameters *inCodecPar = in_stream-&gt;codecpar;
+        if(inCodecPar-&gt;codec_type == AVMEDIA_TYPE_AUDIO ||
+           inCodecPar-&gt;codec_type == AVMEDIA_TYPE_VIDEO ||
+           inCodecPar-&gt;codec_type == AVMEDIA_TYPE_SUBTITLE
+        ){
+            stream_map[i] = index++;
+        }
+        else{
+            stream_map[i] = -1;
+            continue;
+        }
+        out_stream = avformat_new_stream(ofmt_ctx, NULL);
+        if(out_stream == NULL){
+            av_log(ofmt_ctx, AV_LOG_ERROR, &#34;Could not allocate output stream\n&#34;);
+            goto _ERROR;
+        }
+        avcodec_parameters_copy(out_stream-&gt;codecpar, in_stream-&gt;codecpar);
+        // 会根据输出文件类型设置编码器
+        out_stream-&gt;codecpar-&gt;codec_tag = 0;
+    }
+
+
+    ret = avio_open2(&amp;ofmt_ctx-&gt;pb, dst, AVIO_FLAG_WRITE, NULL, NULL);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not open output file %s\n&#34;, dst);
+        goto _ERROR;
+    }
+    ret = avformat_write_header(ofmt_ctx, NULL);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Error write header \n&#34;);
+        goto _ERROR;
+    }
+    while(av_read_frame(fmt_ctx, &amp;pkt) &gt;= 0){
+        // av_log(NULL, AV_LOG_INFO, &#34;pkt index = %d\n&#34;, pkt.stream_index);
+        pkt.stream_index = stream_map[pkt.stream_index];
+        if(pkt.stream_index &lt; 0){
+            av_packet_unref(&amp;pkt);
+            continue;
+        }
+        av_packet_rescale_ts(&amp;pkt, fmt_ctx-&gt;streams[pkt.stream_index]-&gt;time_base, ofmt_ctx-&gt;streams[pkt.stream_index]-&gt;time_base);
+        pkt.pos = -1;
+        av_interleaved_write_frame(ofmt_ctx, &amp;pkt);
+        av_packet_unref(&amp;pkt);
+    }
+    av_write_trailer(ofmt_ctx); 
+
+_ERROR:
+    if(fmt_ctx != NULL){
+        avformat_close_input(&amp;fmt_ctx);
+    }
+    if(ofmt_ctx != NULL){
+        avformat_free_context(ofmt_ctx);
+    }
+    if (ofmt_ctx-&gt;pb)
+    {
+        avio_close(ofmt_ctx-&gt;pb);
+    }
+    if (stream_map)
+    {
+        av_freep(&amp;stream_map);
+    }
+    return 0;
+}
+</code></pre><h3 id="视频裁剪">视频裁剪
+</h3><p><img src="http://hass.898311.xyz:8200/d/%E6%9C%AC%E5%9C%B0/%E5%9B%BE%E7%89%87/image-20240912002846369.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240912002846369"
+	
+	
+></p>
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;libavutil/log.h&gt;
+#include &lt;libavutil/avutil.h&gt;
+#include &lt;libavformat/avio.h&gt;
+#include &lt;libavformat/avformat.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char *argv[]){
+    // 1、处理一些参数
+    // 2、打开文件
+    // 3、从多媒体文件中找到音频流
+    // 4、打开目的文件的上下文
+    // 5、为目的文件打开音频流
+    // 6、设置输出音频参数
+    // 7、写多媒体文件头
+    // 8、循环读取音频流，写入目的文件
+    // 9、写文件尾
+    // 10、 释放资源
+
+    char* src;
+    char* dst;
+    AVFormatContext *fmt_ctx=NULL, *ofmt_ctx=NULL;
+    AVOutputFormat *outFmt=NULL;
+    AVStream *in_stream = NULL, *out_stream = NULL;
+    AVPacket pkt;
+    int index = 0;
+    int *stream_map = NULL;
+    int i;
+    av_log_set_level(AV_LOG_DEBUG);
+    if (argc &lt; 5) {
+        printf(&#34;Usage: %s &lt;input file&gt; &lt;output file&gt;\n&#34;, argv[0]);
+        exit(1);
+    }
+    src = argv[1];
+    dst = argv[2];
+    int starttime = atoi(argv[3]);
+    int endtime = atoi(argv[4]);
+    // 第一个null 表示相关的格式 最后一个参数为选项 如果返回值为负值表示失败
+    int ret = avformat_open_input(&amp;fmt_ctx, src, NULL, NULL);
+    if (ret &lt; 0) {
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not open source file %s\n&#34;, src);
+        exit(1);
+    }
+    // index = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
+    // if(index &lt; 0){
+    //     // 第一参数可以指定为上下文
+    //     av_log(fmt_ctx, AV_LOG_ERROR, &#34;Could not find %s stream in input file %s\n&#34;, av_get_media_type_string(AVMEDIA_TYPE_AUDIO), src);
+    //     goto _ERROR;
+    // }
+    avformat_alloc_output_context2(&amp;ofmt_ctx, NULL, NULL, dst);
+    if(ofmt_ctx == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not allocate output context\n&#34;);
+        goto _ERROR;
+    }
+    stream_map= av_calloc(fmt_ctx-&gt;nb_streams, sizeof(*stream_map)); 
+    if(stream_map == NULL){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not allocate stream map\n&#34;);
+        goto _ERROR;
+    }
+    for(i = 0; i &lt; fmt_ctx-&gt;nb_streams; i++){
+        stream_map[i] = i;
+    }   
+    for (i = 0; i &lt; fmt_ctx-&gt;nb_streams; i++){
+        in_stream = fmt_ctx-&gt;streams[i];
+        AVCodecParameters *inCodecPar = in_stream-&gt;codecpar;
+        if(inCodecPar-&gt;codec_type == AVMEDIA_TYPE_AUDIO ||
+           inCodecPar-&gt;codec_type == AVMEDIA_TYPE_VIDEO ||
+           inCodecPar-&gt;codec_type == AVMEDIA_TYPE_SUBTITLE
+        ){
+            stream_map[i] = index++;
+        }
+        else{
+            stream_map[i] = -1;
+            continue;
+        }
+        out_stream = avformat_new_stream(ofmt_ctx, NULL);
+        if(out_stream == NULL){
+            av_log(ofmt_ctx, AV_LOG_ERROR, &#34;Could not allocate output stream\n&#34;);
+            goto _ERROR;
+        }
+        avcodec_parameters_copy(out_stream-&gt;codecpar, in_stream-&gt;codecpar);
+        // 会根据输出文件类型设置编码器
+        out_stream-&gt;codecpar-&gt;codec_tag = 0;
+    }
+
+    ret = avio_open2(&amp;ofmt_ctx-&gt;pb, dst, AVIO_FLAG_WRITE, NULL, NULL);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Could not open output file %s\n&#34;, dst);
+        goto _ERROR;
+    }
+    ret = avformat_write_header(ofmt_ctx, NULL);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Error write header \n&#34;);
+        goto _ERROR;
+    }
+    int64_t *dst_start_time_pts = av_calloc(ofmt_ctx-&gt;nb_streams, sizeof(int64_t));
+    int64_t *dst_start_time_dts = av_calloc(ofmt_ctx-&gt;nb_streams, sizeof(int64_t));
+    for(i = 0; i &lt; fmt_ctx-&gt;nb_streams; i++){
+        dst_start_time_pts[i] = -1;
+        dst_start_time_dts[i] = -1;
+    }
+
+    ret = av_seek_frame(fmt_ctx, -1, starttime * AV_TIME_BASE, AVSEEK_FLAG_BACKWARD);
+    if(ret &lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &#34;Error seek frame \n&#34;);
+        goto _ERROR;
+    }
+    while(av_read_frame(fmt_ctx, &amp;pkt) &gt;= 0){
+        if(av_q2d(fmt_ctx-&gt;streams[pkt.stream_index]-&gt;time_base) * pkt.pts &gt; endtime ){
+            av_packet_unref(&amp;pkt);
+            break;
+        }
+        pkt.stream_index = stream_map[pkt.stream_index];
+        if(dst_start_time_pts[pkt.stream_index] == -1 &amp;&amp; pkt.pts &gt; 0){
+            dst_start_time_pts[pkt.stream_index] = pkt.pts;
+        }
+        if(dst_start_time_dts[pkt.stream_index] == -1 &amp;&amp; pkt.dts &gt; 0){
+            dst_start_time_dts[pkt.stream_index] = pkt.dts;
+        }
+        pkt.pts = pkt.pts - dst_start_time_pts[pkt.stream_index];
+        pkt.dts = pkt.dts - dst_start_time_dts[pkt.stream_index];
+        if (pkt.pts &lt; pkt.dts) {
+            pkt.pts = pkt.dts;
+        }
+        av_log(NULL, AV_LOG_DEBUG, &#34;pkt.pts = %lld, pkt.dts = %lld, pkt.stream_index = %d\n&#34;, pkt.pts, pkt.dts, pkt.stream_index);
+
+        if(pkt.stream_index &lt; 0){
+            av_packet_unref(&amp;pkt);
+            continue;
+        }
+        av_packet_rescale_ts(&amp;pkt, fmt_ctx-&gt;streams[pkt.stream_index]-&gt;time_base, ofmt_ctx-&gt;streams[pkt.stream_index]-&gt;time_base);
+        pkt.pos = -1;
+        av_interleaved_write_frame(ofmt_ctx, &amp;pkt);
+        av_packet_unref(&amp;pkt);
+    }
+    av_write_trailer(ofmt_ctx); 
+
+_ERROR:
+    if(fmt_ctx != NULL){
+        avformat_close_input(&amp;fmt_ctx);
+    }
+    if(ofmt_ctx != NULL){
+        avformat_free_context(ofmt_ctx);
+    }
+    if (ofmt_ctx-&gt;pb)
+    {
+        avio_close(ofmt_ctx-&gt;pb);
+    }
+    if (stream_map)
+    {
+        av_freep(&amp;stream_map);
+    }
+    return 0;
+}
+</code></pre>
 </section>
 
 
