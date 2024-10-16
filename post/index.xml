@@ -72,7 +72,7 @@
 &lt;h2 id=&#34;录制命令&#34;&gt;录制命令
 &lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffmpeg -list_devices true -f dshow -i dummy
 &lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffmpeg -f dshow -i video=&amp;#34;USB2.0 HD UVC WebCam&amp;#34; -vcodec libx264 -preset ultrafast desktop.mkv
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/image-20240906224126914.png&#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240906224126914.png&#34;
 	
 	
 	
@@ -95,7 +95,7 @@
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffplay -ar 44100 -f s16le out.pcm
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;滤镜命令&#34;&gt;滤镜命令
 &lt;/h2&gt;&lt;p&gt;使用滤镜要使用解码后的数据，压缩后的数据是无法处理的：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://hass.898311.xyz:8200/d/%E6%88%91%E7%9A%84%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%BA%8A/image-20240907151620144.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240907151620144.png&#34;
 	
 	
 	
@@ -313,7 +313,7 @@ _ERROR:
     
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://hass.898311.xyz:8200/d/%E6%9C%AC%E5%9C%B0/%E5%9B%BE%E7%89%87/image-20240911005025395.png&#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240911005025395.png&#34;
 	
 	
 	
@@ -448,7 +448,7 @@ _ERROR:
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;视频裁剪&#34;&gt;视频裁剪
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;http://hass.898311.xyz:8200/d/%E6%9C%AC%E5%9C%B0/%E5%9B%BE%E7%89%87/image-20240912002846369.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://898311543.github.io/image-20240912002846369.png&#34;
 	
 	
 	
