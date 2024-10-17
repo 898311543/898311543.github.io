@@ -12,8 +12,9 @@
         <pubDate>Thu, 17 Oct 2024 11:27:55 +0800</pubDate>
         
         <guid>https://898311543.github.io/post/golang_learning/</guid>
-        <description>&lt;p&gt;&lt;strong&gt;Golang 知识记录&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
+        <description>&lt;h1 id=&#34;golang-知识记录&#34;&gt;&lt;strong&gt;Golang 知识记录&lt;/strong&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;例子&#34;&gt;例子
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;写响应头长度&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: zeroLength&amp;#34;)
@@ -46,7 +47,66 @@
 		http.ServeFile(w, r, &amp;#34;file_folder/1MB.mp4&amp;#34;)
 		fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d success\n&amp;#34;,accessCount)
 		accessCount ++
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;删除请求header中的特定参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;			r.Header.Del(&amp;#34;Range&amp;#34;)             // 删除参数
+			http.ServeFile(w, r, &amp;#34;file_folder/1022KB.mp4&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;golang-server-基本用法&#34;&gt;golang server 基本用法
+&lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+    &amp;#34;fmt&amp;#34;
+    &amp;#34;net/http&amp;#34;
+)
+// handler 函数有两个参数，`http.ResponseWriter` 和 `http.Request`。 response writer 被用于写入 HTTP 响应数据，这里我们简单的返回 “hello\n”。
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
+}
+// 这个 handler 稍微复杂一点， 我们需要读取的 HTTP 请求 header 中的所有内容，并将他们输出至 response body。
+func headers(w http.ResponseWriter, req *http.Request) {
+
+    for name, headers := range req.Header {
+        for _, h := range headers {
+            fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, name, h)
+        }
+    }
+}
+
+func main() {
+
+    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
+    http.HandleFunc(&amp;#34;/headers&amp;#34;, headers)
+
+    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;关于路径&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;http.HandleFunc(&amp;quot;/globFiles/&amp;quot;, globFiles) 路径最后携带/ 能够通配/globFiles开头的所有路径&lt;/li&gt;
+&lt;li&gt;如果不携带只能精确匹配这个指定的路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读取GET的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;获取query&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;q := r.URL.Query()
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读取参数&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;id := query[&amp;quot;id&amp;quot;][0] &lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​				2. &lt;code&gt;id := query.Get(&amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>ffmpeg中级开发</title>
