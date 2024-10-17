@@ -369,6 +369,11 @@ _ERROR:
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;
+
+
+
+
+
 &lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20240911005025395.png&#34; alt=&#39;image-20240911005025395&#39; /&gt;
 &lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
