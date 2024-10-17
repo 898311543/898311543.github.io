@@ -6,7 +6,49 @@
         <description>Recent content on Shubin</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 17 Oct 2024 01:02:59 +0800</lastBuildDate><atom:link href="https://898311543.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 17 Oct 2024 11:27:55 +0800</lastBuildDate><atom:link href="https://898311543.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Golang学习记录</title>
+        <link>https://898311543.github.io/post/golang_learning/</link>
+        <pubDate>Thu, 17 Oct 2024 11:27:55 +0800</pubDate>
+        
+        <guid>https://898311543.github.io/post/golang_learning/</guid>
+        <description>&lt;p&gt;&lt;strong&gt;Golang 知识记录&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;写响应头长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: zeroLength&amp;#34;)
+		w.Header().Set(&amp;#34;Content-Length&amp;#34;, &amp;#34;0&amp;#34;)
+		w.Write([]byte(&amp;#34;This is the actual response body&amp;#34;))
+		return
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;写状态码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: 404&amp;#34;)
+		http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusNotFound)
+		return
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;不同访问次数的访问结果不同（第一次访问成功，其他访问失败）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		query := r.URL.Query()
+		val := query.Get(&amp;#34;command&amp;#34;)
+		switch  val {
+			case &amp;#34;clear&amp;#34;:
+				accessCount = 0
+				return
+		}
+		if accessCount &amp;gt; 0 {
+			
+			http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusInternalServerError)
+			fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d fails\n&amp;#34;,accessCount)
+			accessCount ++
+			return
+		}
+		http.ServeFile(w, r, &amp;#34;file_folder/1MB.mp4&amp;#34;)
+		fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d success\n&amp;#34;,accessCount)
+		accessCount ++
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
         <title>ffmpeg中级开发</title>
         <link>https://898311543.github.io/post/ffmpeg_medium/</link>
         <pubDate>Thu, 17 Oct 2024 01:02:59 +0800</pubDate>
