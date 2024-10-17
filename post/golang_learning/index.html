@@ -150,7 +150,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    2 minute read
                 </time>
             </div>
         
@@ -248,17 +248,114 @@ func main() {
 <li>
 <p>获取query</p>
 <pre tabindex="0"><code>q := r.URL.Query()
-</code></pre></li>
+</code></pre><ul>
 <li>
 <p>读取参数</p>
-<ol>
-<li><code>id := query[&quot;id&quot;][0] </code></li>
-</ol>
+<ul>
+<li>
+<p><code>id := query[&quot;id&quot;][0] </code></p>
 </li>
+<li>
+<p><code>id := query.Get(&quot;id&quot;)</code></p>
+</li>
+<li>
+<p>map遍历</p>
+<pre tabindex="0"><code>for key, value := range req.URL.Query() {
+  fmt.Fprintf(w, &#34;%v: %v\n&#34;, key, value)
+}
+</code></pre></li>
 </ul>
 </li>
 </ul>
-<p>​				2.  <code>id := query.Get(&quot;id&quot;)</code></p>
+</li>
+<li>
+<p>获取 <code>application/x-www-form-urlencoded</code>类型的参数</p>
+<ul>
+<li>
+<pre tabindex="0"><code>req.ParseForm()
+username := request.Form.Get(&#34;username&#34;)
+password := request.Form.Get(&#34;password&#34;)
+</code></pre></li>
+<li>
+<p>curl命令</p>
+</li>
+</ul>
+<pre tabindex="0"><code>curl -X POST https://reqbin.com/echo/post/form
+   -H &#34;Content-Type: application/x-www-form-urlencoded&#34; 
+   -d &#34;param1=value1&amp;param2=value2&#34; 
+</code></pre></li>
+<li>
+<p>获取<code>application/json </code>类型的参数</p>
+<ul>
+<li>
+<pre tabindex="0"><code>func  json_decode(w http.ResponseWriter, req *http.Request) {
+	decoder := json.NewDecoder(req.Body)
+	var v map[string]interface{}
+	err := decoder.Decode(&amp;v)
+	if err != nil {
+		panic(err)
+	}
+	for key, value := range v {
+		switch value := value.(type) {
+		case string:
+			fmt.Printf(&#34;Key: %s, Value: %s, Type: string\n&#34;, key, value)
+		case int:
+			fmt.Printf(&#34;Key: %s, Value: %d, Type: int\n&#34;, key, value)
+		case bool:
+			fmt.Printf(&#34;Key: %s, Value: %t, Type: bool\n&#34;, key, value)
+		case float64:
+			fmt.Printf(&#34;Key: %s, Value: %f, Type: float64\n&#34;, key, value)
+		case []string:
+			fmt.Printf(&#34;Key: %s, Value: %v, Type: []string\n&#34;, key, value)
+		default:
+			fmt.Printf(&#34;Key: %s, Value: %v, Type: unknown\n&#34;, key, value)
+		}
+	}
+	fmt.Fprintf(w,&#34;{\&#34;code\&#34;:0}&#34;)
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="context">Context
+</h3><p>平时在 Go 工程中开发中，几乎所有服务端（例如：HTTP Server）的默认实现，都在处理请求时新起 goroutine 进行处理。</p>
+<p>但一开始存在一个问题，那就是当一个请求被取消或超时时，所有在该请求上工作的 goroutines 应该迅速退出，以便系统可以回收他们正在使用的任何资源。</p>
+<pre tabindex="0"><code>package main
+
+import (
+    &#34;fmt&#34;
+    &#34;net/http&#34;
+    &#34;time&#34;
+)
+
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    ctx := req.Context()
+    fmt.Println(&#34;server: hello handler started&#34;)
+    defer fmt.Println(&#34;server: hello handler ended&#34;)
+
+    select {
+    case &lt;-time.After(10 * time.Second):
+        fmt.Fprintf(w, &#34;hello\n&#34;)
+    case &lt;-ctx.Done():
+
+        err := ctx.Err()
+        fmt.Println(&#34;server:&#34;, err)
+        internalError := http.StatusInternalServerError
+        http.Error(w, err.Error(), internalError)
+    }
+}
+
+func main() {
+
+    http.HandleFunc(&#34;/hello&#34;, hello)
+    http.ListenAndServe(&#34;:8090&#34;, nil)
+}
+</code></pre><ul>
+<li>客户端主动断开后，会进入ctx.Done()分支</li>
+</ul>
 
 </section>
 
