@@ -105,7 +105,7 @@ func main() {
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;​				2. &lt;code&gt;id := query.Get(&amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;​				2.  &lt;code&gt;id := query.Get(&amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
