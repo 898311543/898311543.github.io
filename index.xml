@@ -246,12 +246,50 @@ func main() {
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;libavutil/log.h&amp;gt;
+#include &amp;lt;libavutil/opt.h&amp;gt;
 #include &amp;lt;libavformat/avformat.h&amp;gt;
 #include &amp;lt;libavcodec/avcodec.h&amp;gt;
 #include &amp;lt;stdio.h&amp;gt;
 
+static void encode(AVCodecContext *ctx, AVFrame *frame, AVPacket *pkt, FILE *fp){
+    int ret = -1;
+    // 1.编码
+    ret = avcodec_send_frame(ctx,frame);
+    if(ret &amp;lt; 0){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t send frame %s\n&amp;#34;,av_err2str(ret));
+        goto _END;
+    }
+    // 2.获取编码后的数据
+    while (ret &amp;gt;= 0)
+    {
+       ret = avcodec_receive_packet(ctx,pkt);
+       if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF){
+           return;
+       } else if (ret &amp;lt; 0){
+           av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t receive packet %s\n&amp;#34;,av_err2str(ret));
+           goto _END;
+       }
+        // 3.写入文件
+        fwrite(pkt-&amp;gt;data,1,pkt-&amp;gt;size,fp);
+        av_packet_unref(pkt);
+    }
+    
+
+    return;
+_END:
+    if(pkt) av_packet_unref(pkt);
+    if(frame) av_frame_unref(frame);
+    if(ctx) avcodec_free_context(&amp;amp;ctx);
+    if(fp) fclose(fp);
+    return;
+}
+
 int main(int argc, char** argv){
     AVCodec *codec;
+    AVCodecContext *ctx;
+    AVFrame *frame = NULL;
+    AVPacket *pkt = NULL;
+    int ret = -1;
     av_log_set_level(AV_LOG_DEBUG);
     if(argc &amp;lt; 3){
         printf(&amp;#34;Usage: %s &amp;lt;file&amp;gt; &amp;lt;codecname&amp;gt;\n&amp;#34;, argv[0]);
@@ -265,12 +303,95 @@ int main(int argc, char** argv){
         av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t find codec %s&amp;#34;,codecname);
         goto _ERROR;
     }
-
+    // 3. 编码器上下文
+    ctx = avcodec_alloc_context3(codec);
+    if(!ctx) {
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t alloc codec context&amp;#34;);
+        goto _ERROR;
+    }
+    // 4. 设置编码器参数
+    ctx-&amp;gt;width = 640;
+    ctx-&amp;gt;height = 480;
+    ctx-&amp;gt;bit_rate = 500000;
+    ctx-&amp;gt;time_base = (AVRational){1,25};
+    ctx-&amp;gt;framerate = (AVRational){25,1};
+    ctx-&amp;gt;gop_size = 10;
+    ctx-&amp;gt;max_b_frames = 1;
+    ctx-&amp;gt;pix_fmt = AV_PIX_FMT_YUV420P;
+    // h264 私有属性
+    if (codec-&amp;gt;id == AV_CODEC_ID_H264){
+        av_opt_set(ctx-&amp;gt;priv_data,&amp;#34;preset&amp;#34;,&amp;#34;slow&amp;#34;,0);
+    }
+    // 5.绑定编码器上下文和编码器
+    ret = avcodec_open2(ctx,codec,NULL);
+    if(ret &amp;lt; 0){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t open codec %s&amp;#34;,av_err2str(ret));
+        goto _ERROR;
+    }
+    // 6. 打开文件
+    FILE *fp = fopen(dst,&amp;#34;wb&amp;#34;);
+    if(!fp){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t open file %s&amp;#34;,dst);
+        goto _ERROR;
+    }
+    // 7. 创建AVFrame
+    // 创建的只是外壳 不能真正存储文件
+    frame = av_frame_alloc();
+    if(!frame){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t alloc frame&amp;#34;);
+        goto _ERROR;
+    }
+    frame-&amp;gt;format = ctx-&amp;gt;pix_fmt;
+    frame-&amp;gt;width = ctx-&amp;gt;width;
+    frame-&amp;gt;height = ctx-&amp;gt;height;
+    ret = av_frame_get_buffer(frame,0);
+    if(ret &amp;lt; 0){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t alloc frame buffer %s\n&amp;#34;,av_err2str(ret));
+        goto _ERROR;
+    }
+    // 8. 创建AVPacket
+    pkt = av_packet_alloc();
+    if(!pkt){
+        av_log(NULL,AV_LOG_ERROR,&amp;#34;coundn&amp;#39;t alloc packet&amp;#34;);
+        goto _ERROR;
+    }
+    // 9. 生成视频内容
+    for(int i = 0; i &amp;lt; 10; i++){
+        ret = av_frame_make_writable(frame);
+        if(ret &amp;lt; 0) {
+            break;
+        }
+        for(int y = 0; y &amp;lt; frame-&amp;gt;height; y++){
+            for(int x = 0; x &amp;lt; frame-&amp;gt;width; x++){
+                frame-&amp;gt;data[0][y*frame-&amp;gt;linesize[0] + x] = x + y + i*3;
+                frame-&amp;gt;data[1][y/2*frame-&amp;gt;linesize[1] + x/2] = 128 + y + i*2;
+                frame-&amp;gt;data[2][y/2*frame-&amp;gt;linesize[2] + x/2] = 64 + x + i*5;
+            }
+        }
+        frame-&amp;gt;pts = i;
+        encode(ctx,frame,pkt,fp);
+    }
+    encode(ctx,NULL,pkt,fp);
     _ERROR:
-
+        if(ctx){
+            avcodec_free_context(&amp;amp;ctx);
+        }
+        if(frame){
+            av_frame_free(&amp;amp;frame);
+        }
+        if(pkt){
+            av_packet_free(&amp;amp;pkt);
+        }
+        if(fp){
+            fclose(fp);
+        }
         return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;yuv介绍&#34;&gt;YUV介绍
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;YUV是通过亮度和色彩来分别代表像素的格式，其中“Y”表示明亮度（Luminance或Luma），也就是灰度值；而“U”和“V”表示的则是色度。在实际使用中，使用的格式一般是YCbCr，其中Y是指亮度分量，Cb指蓝色色度分量，而Cr指红色色度分量。在格式上面有很多取样格式。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         <item>
         <title>ffmpeg命令</title>
