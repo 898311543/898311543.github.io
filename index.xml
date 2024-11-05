@@ -544,6 +544,248 @@ _ERROR:
     
     return 0;
 }
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;libavutil/log.h&amp;gt;
+#include &amp;lt;libavutil/avutil.h&amp;gt;
+#include &amp;lt;libavformat/avio.h&amp;gt;
+#include &amp;lt;libavformat/avformat.h&amp;gt;
+#include &amp;lt;libavcodec/avcodec.h&amp;gt;
+#include &amp;lt;libswscale/swscale.h&amp;gt;
+
+#define WORD uint16_t
+#define DWORD uint32_t
+#define LONG  int32_t
+#pragma pack(2)
+typedef struct tagBITMAPINFOHEADER {
+  DWORD biSize;
+  LONG  biWidth;
+  LONG  biHeight;
+  WORD  biPlanes;
+  WORD  biBitCount;
+  DWORD biCompression;
+  DWORD biSizeImage;
+  LONG  biXPelsPerMeter;
+  LONG  biYPelsPerMeter;
+  DWORD biClrUsed;
+  DWORD biClrImportant;
+} BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
+
+typedef struct tagBITMAPFILEHEADER {
+  WORD  bfType;
+  DWORD bfSize;
+  WORD  bfReserved1;
+  WORD  bfReserved2;
+  DWORD bfOffBits;
+} BITMAPFILEHEADER, *LPBITMAPFILEHEADER, *PBITMAPFILEHEADER;
+
+// 1、先进行转换，将yuv420p转为rgb24
+// 2、构造BITMAPINFORHEADER
+// 3、构造BITMAPFILEHEADER
+// 4、将数据写入文件 
+// 5、释放资源
+static void saveBmp(struct SwsContext *sws_ctx, AVFrame *frame, int width, int height, char *filename){
+    AVFrame *frame_rgb24 = av_frame_alloc();
+    FILE *f = fopen(filename, &amp;#34;wb&amp;#34;);
+    int image_size = width * height * 3;
+    int ret;
+    frame_rgb24-&amp;gt;width = width;
+    frame_rgb24-&amp;gt;height = height;
+    frame_rgb24-&amp;gt;format = AV_PIX_FMT_RGB24;
+    ret = av_frame_get_buffer(frame_rgb24, 0);
+    if(ret &amp;lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &amp;#34;Error allocating the frame data ret = %d\n&amp;#34;, ret);
+        return;
+    }
+    sws_scale(sws_ctx, (const uint8_t * const*)frame-&amp;gt;data, frame-&amp;gt;linesize, 0, frame-&amp;gt;height, frame_rgb24-&amp;gt;data, frame_rgb24-&amp;gt;linesize);
+    printf(&amp;#34;image_size = %d width = %d height = %d &amp;#34;,image_size, width, height);
+    BITMAPINFOHEADER infoheader;
+    infoheader.biSize = sizeof(BITMAPINFOHEADER);
+    infoheader.biWidth = width;
+    infoheader.biHeight = height * (-1); // 高度坐标相反
+    infoheader.biBitCount = 24;
+    infoheader.biCompression = 0;
+    infoheader.biSizeImage = 0;
+    infoheader.biClrImportant = 0;
+    infoheader.biClrUsed = 0;
+    infoheader.biXPelsPerMeter = 0;
+    infoheader.biYPelsPerMeter = 0;
+    infoheader.biPlanes = 1;
+    BITMAPFILEHEADER fileheader;
+    fileheader.bfType = 0x4D42; // &amp;#34;BM&amp;#34;
+    fileheader.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + image_size;
+    fileheader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+    fwrite(&amp;amp;fileheader, sizeof(BITMAPFILEHEADER), 1, f);
+    fwrite(&amp;amp;infoheader, sizeof(BITMAPINFOHEADER), 1, f);
+    fwrite(frame_rgb24-&amp;gt;data[0], 1, image_size, f);
+    fclose(f);
+    av_freep(&amp;amp;frame_rgb24-&amp;gt;data[0]);
+    av_frame_free(frame_rgb24);
+}
+
+static void savePic(AVFrame *frame, char *filename){
+    FILE *f = fopen(filename, &amp;#34;wb&amp;#34;);
+    fprintf(f, &amp;#34;P5\n%d %d\n255\n&amp;#34;, frame-&amp;gt;width, frame-&amp;gt;height);
+    // fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+    // size 每个元素的大小 nmemb 元素的个数  
+    for (int i = 0; i &amp;lt; frame-&amp;gt;height; i++)
+    {
+        fwrite(frame-&amp;gt;data[0]+i*frame-&amp;gt;linesize[0], 1, frame-&amp;gt;width, f);
+    }
+    
+    fclose(f);
+}
+
+static int decode(AVCodecContext *ctx, struct SwsContext *sws_ctx, AVFrame *frame, AVPacket *pkt, char *filename){
+    int ret;
+    char filename_filled[1024];
+    ret = avcodec_send_packet(ctx, pkt);
+    if(ret &amp;lt; 0){
+        av_log(NULL, AV_LOG_ERROR, &amp;#34;Error sending a packet for decoding ret = %d %d\n&amp;#34;, ret,AVERROR(EINVAL));
+        return ret;
+    }
+
+    while(ret &amp;gt;= 0){
+        ret = avcodec_receive_frame(ctx, frame);
+        if(ret == AVERROR(EAGAIN) || ret == AVERROR_EOF){
+            return 0;
+        }else if(ret &amp;lt; 0){
+            av_log(NULL, AV_LOG_ERROR, &amp;#34;Error during decoding\n&amp;#34;);
+            return ret;
+        }
+        printf(&amp;#34;frame_number = %d\n&amp;#34;, ctx-&amp;gt;frame_number);
+        snprintf(filename_filled, sizeof(filename)+5, &amp;#34;%s-%d.bmp&amp;#34;, filename, ctx-&amp;gt;frame_number);
+        // savePic(frame, filename_filled);
+        saveBmp(sws_ctx,frame,640, 360, filename_filled);
+        fflush(stdout);
+    }
+    return 0;
+}
+
+
+int main(int argc, char *argv[]){
+    // 1、处理一些参数
+    // 2、打开文件
+    // 3、从多媒体文件中找到音频流
+    // 4、打开目的文件的上下文
+    // 5、为目的文件打开音频流
+    // 6、设置输出音频参数
+    // 7、写多媒体文件头
+    // 8、循环读取音频流，写入目的文件
+    // 9、写文件尾
+    // 10、 释放资源
+
+    char* src;
+    char* dst;
+    AVCodecContext *ctx;
+    AVFormatContext *fmt_ctx;
+    AVStream *in_stream = NULL, *out_stream = NULL;
+    const static AVCodec *codec;
+    AVPacket *pkt;
+    AVFrame *frame;
+    struct SwsContext *sws_ctx = NULL;
+
+    int index = -1;
+    av_log_set_level(AV_LOG_DEBUG);
+    if (argc &amp;lt; 3) {
+        printf(&amp;#34;Usage: %s &amp;lt;input file&amp;gt; &amp;lt;output file&amp;gt;\n&amp;#34;, argv[0]);
+        exit(1);
+    }
+    src = argv[1];
+    dst = argv[2];
+    fmt_ctx = avformat_alloc_context();
+    // 第一个null 表示相关的格式 最后一个参数为选项 如果返回值为负值表示失败
+    int ret = avformat_open_input(&amp;amp;fmt_ctx, src, NULL, NULL);
+    if (ret &amp;lt; 0) {
+        av_log(NULL, AV_LOG_ERROR, &amp;#34;Could not open source file %s\n&amp;#34;, src);
+        exit(1);
+    }
+
+    if ((ret = avformat_find_stream_info(fmt_ctx, NULL)) &amp;lt; 0) {
+        av_log(NULL, AV_LOG_ERROR, &amp;#34;Cannot find stream information\n&amp;#34;);
+        return ret;
+    }
+    index = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
+    if(index &amp;lt; 0){
+        // 第一参数可以指定为上下文
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not find %s stream in input file %s\n&amp;#34;, av_get_media_type_string(AVMEDIA_TYPE_VIDEO), src);
+        goto _ERROR;
+    }
+    codec = avcodec_find_decoder(fmt_ctx-&amp;gt;streams[index]-&amp;gt;codecpar-&amp;gt;codec_id);
+    if(codec == NULL){
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not find codec \n&amp;#34;);
+        goto _ERROR;
+    }
+    ctx = avcodec_alloc_context3(NULL);
+    if(ctx == NULL){
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not allocate codec context\n&amp;#34;);
+        goto _ERROR;
+    }
+    // 重要 不要写avcodec_parameters_copy 否则会导致coredump
+    avcodec_parameters_to_context(ctx, fmt_ctx-&amp;gt;streams[index]-&amp;gt;codecpar);
+    // printf(&amp;#34;width %d height %d&amp;#34;, ctx-&amp;gt;width,ctx-&amp;gt;height);
+    // 图像转换
+    sws_ctx = sws_getContext(
+                        ctx-&amp;gt;width, 
+                        ctx-&amp;gt;height, 
+                        AV_PIX_FMT_YUV420P, 
+                        640, 
+                        360, 
+                        AV_PIX_FMT_BGR24,
+                        SWS_BICUBIC, NULL, NULL, NULL);
+    if (sws_ctx == NULL){
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not initialize the conversion context\n&amp;#34;);
+        goto _ERROR;
+    }
+    // 将解码器和解码器上下文连接
+    ret = avcodec_open2(ctx, codec, NULL);
+    if(ret &amp;lt; 0){
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not open codec\n&amp;#34;);
+        goto _ERROR;
+    }
+    frame = av_frame_alloc();
+    if(frame == NULL){
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not allocate frame\n&amp;#34;);
+        goto _ERROR;
+    }
+    pkt = av_packet_alloc();
+    if(pkt == NULL){
+        av_log(fmt_ctx, AV_LOG_ERROR, &amp;#34;Could not allocate packet\n&amp;#34;);
+        goto _ERROR;
+    }
+    int pkt_index = 0;
+    while(av_read_frame(fmt_ctx, pkt) &amp;gt;= 0){
+        if(pkt-&amp;gt;stream_index == index){
+            // pkt_index ++;
+            decode(ctx,sws_ctx,frame, pkt,dst);
+            if(pkt_index ++ &amp;gt; 10)
+                break;
+            // av_packet_unref(pkt);
+        }
+    }
+    decode(ctx,sws_ctx,frame, NULL,dst);
+
+_ERROR:
+    if(fmt_ctx != NULL){
+        avformat_close_input(&amp;amp;fmt_ctx);
+    }
+    if(ctx) {
+        avcodec_free_context(&amp;amp;ctx);
+        ctx = NULL;
+    }
+    if(frame){
+        av_frame_free(&amp;amp;frame);
+        frame = NULL;
+    }
+    if(pkt){
+        av_packet_free(&amp;amp;pkt);
+        pkt = NULL;
+    }
+    if(sws_ctx){
+        sws_freeContext(sws_ctx);
+        sws_ctx = NULL;
+    }
+    return 0;
+}
 &lt;/code&gt;&lt;/pre&gt;</description>
         </item>
         <item>
