@@ -397,8 +397,20 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 <img class="img-fluid" src="/20181120123516554.png" alt='img' />
 </p>
 <p><code>YV12：亮度Y(行×列) + V(行×列/4) + U(行×列/4</code></p>
+<pre tabindex="0"><code>YU12: YYYYYYYY UUVV    =&gt;    YUV420P
+YV12: YYYYYYYY VVUU    =&gt;    YUV420P
+</code></pre><p>其中比较常见的YUV420分为两种：YUV420P和YUV420SP。YUV420SP(NV21和NV12)格式。</p>
 </li>
 </ul>
+<p><code>YUV420SP</code>格式的图像阵列，首先是所有<code>Y值</code>，然后是<code>UV</code>或者<code>VU</code>交替存储，<code>NV12和NV21属于YUV420SP</code>格式，是一种<code>two-plane模式</code>，即<code>Y和UV分为两个plane</code>，但是<code>UV(CbCr)</code>为交错存储，而不是分为三个平面。</p>
+<p>
+
+
+
+
+
+<img class="img-fluid" src="/201811192258324.png" alt='img' />
+</p>
 <h3 id="生成图片代码">生成图片代码
 </h3><pre tabindex="0"><code>#include &lt;stdio.h&gt;
 #include &lt;libavutil/log.h&gt;
