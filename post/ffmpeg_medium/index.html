@@ -411,6 +411,40 @@ YV12: YYYYYYYY VVUU    =&gt;    YUV420P
 
 <img class="img-fluid" src="/201811192258324.png" alt='img' />
 </p>
+<ul>
+<li>
+<p>NV21格式</p>
+<ul>
+<li>android手机从摄像头采集的预览数据一般都是NV21，存储顺序是先存Y，再VU交替存储，<code>NV21</code>存储顺序是先存<code>Y值</code>，再<code>VU</code>交替存储：<code>YYYYVUVUVU</code>，以 <code>4 X 4</code> 图片为例子，占用内存为 <code>4 X 4 X 3 / 2 = 24</code> 个字节</li>
+</ul>
+<p>
+
+
+
+
+
+<img class="img-fluid" src="/20181119235116552.png" alt='img' />
+</p>
+</li>
+<li>
+<p>NV12格式</p>
+<ul>
+<li>NV12与NV21类似，也属于<code>YUV420SP</code>格式，<code>NV12</code>存储顺序是先存<code>Y值</code>，再<code>UV</code>交替存储：<code>YYYYUVUVUV</code>，以 <code>4 X 4</code> 图片为例子，占用内存为 <code>4 X 4 X 3 / 2 = 24</code> 个字节</li>
+</ul>
+<p>
+
+
+
+
+
+<img class="img-fluid" src="/20181119235210475.png" alt='img' />
+</p>
+<pre tabindex="0"><code>NV12: YYYYYYYY UVUV    =&gt;YUV420SP
+NV21: YYYYYYYY VUVU    =&gt;YUV420SP
+</code></pre><p>参考：<a class="link" href="https://github.com/byhook/ffmpeg4android/blob/master/readme/%E5%9B%BE%E8%A7%A3YU12%E3%80%81I420%E3%80%81YV12%E3%80%81NV12%E3%80%81NV21%E3%80%81YUV420P%E3%80%81YUV420SP%E3%80%81YUV422P%E3%80%81YUV444P%E7%9A%84%E5%8C%BA%E5%88%AB.md"  target="_blank" rel="noopener"
+    ></a></p>
+</li>
+</ul>
 <h3 id="生成图片代码">生成图片代码
 </h3><pre tabindex="0"><code>#include &lt;stdio.h&gt;
 #include &lt;libavutil/log.h&gt;
