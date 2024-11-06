@@ -406,7 +406,10 @@ int main(int argc, char** argv){
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;YUV是通过亮度和色彩来分别代表像素的格式，其中“Y”表示明亮度（Luminance或Luma），也就是灰度值；而“U”和“V”表示的则是色度。在实际使用中，使用的格式一般是YCbCr，其中Y是指亮度分量，Cb指蓝色色度分量，而Cr指红色色度分量。在格式上面有很多取样格式。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;生成图片代码&#34;&gt;生成图片代码
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;YUV 4:4:4采样，每一个Y对应一组UV分量,一个YUV占8+8+8 = 24bits 3个字节。
+YUV 4:2:2采样，每两个Y共用一组UV分量,一个YUV占8+4+4 = 16bits 2个字节。
+YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5个字节。
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;生成图片代码&#34;&gt;生成图片代码
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;lt;libavutil/log.h&amp;gt;
 #include &amp;lt;libavutil/avutil.h&amp;gt;
