@@ -6,206 +6,7 @@
         <description>Recent content on Shubin</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 17 Oct 2024 11:27:55 +0800</lastBuildDate><atom:link href="https://898311543.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Golang学习记录</title>
-        <link>https://898311543.github.io/post/golang_learning/</link>
-        <pubDate>Thu, 17 Oct 2024 11:27:55 +0800</pubDate>
-        
-        <guid>https://898311543.github.io/post/golang_learning/</guid>
-        <description>&lt;h1 id=&#34;golang-知识记录&#34;&gt;&lt;strong&gt;Golang 知识记录&lt;/strong&gt;
-&lt;/h1&gt;&lt;h2 id=&#34;例子&#34;&gt;例子
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;写响应头长度&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: zeroLength&amp;#34;)
-		w.Header().Set(&amp;#34;Content-Length&amp;#34;, &amp;#34;0&amp;#34;)
-		w.Write([]byte(&amp;#34;This is the actual response body&amp;#34;))
-		return
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;写状态码&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: 404&amp;#34;)
-		http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusNotFound)
-		return
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;不同访问次数的访问结果不同（第一次访问成功，其他访问失败）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		query := r.URL.Query()
-		val := query.Get(&amp;#34;command&amp;#34;)
-		switch  val {
-			case &amp;#34;clear&amp;#34;:
-				accessCount = 0
-				return
-		}
-		if accessCount &amp;gt; 0 {
-			
-			http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusInternalServerError)
-			fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d fails\n&amp;#34;,accessCount)
-			accessCount ++
-			return
-		}
-		http.ServeFile(w, r, &amp;#34;file_folder/1MB.mp4&amp;#34;)
-		fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d success\n&amp;#34;,accessCount)
-		accessCount ++
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;删除请求header中的特定参数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;			r.Header.Del(&amp;#34;Range&amp;#34;)             // 删除参数
-			http.ServeFile(w, r, &amp;#34;file_folder/1022KB.mp4&amp;#34;)
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;golang-server-基本用法&#34;&gt;golang server 基本用法
-&lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
-
-import (
-    &amp;#34;fmt&amp;#34;
-    &amp;#34;net/http&amp;#34;
-)
-// handler 函数有两个参数，`http.ResponseWriter` 和 `http.Request`。 response writer 被用于写入 HTTP 响应数据，这里我们简单的返回 “hello\n”。
-func hello(w http.ResponseWriter, req *http.Request) {
-
-    fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
-}
-// 这个 handler 稍微复杂一点， 我们需要读取的 HTTP 请求 header 中的所有内容，并将他们输出至 response body。
-func headers(w http.ResponseWriter, req *http.Request) {
-
-    for name, headers := range req.Header {
-        for _, h := range headers {
-            fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, name, h)
-        }
-    }
-}
-
-func main() {
-
-    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
-    http.HandleFunc(&amp;#34;/headers&amp;#34;, headers)
-
-    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;关于路径&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;http.HandleFunc(&amp;quot;/globFiles/&amp;quot;, globFiles) 路径最后携带/ 能够通配/globFiles开头的所有路径&lt;/li&gt;
-&lt;li&gt;如果不携带只能精确匹配这个指定的路径&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;读取GET的参数&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;获取query&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;q := r.URL.Query()
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;读取参数&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;id := query[&amp;quot;id&amp;quot;][0] &lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;id := query.Get(&amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;map遍历&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for key, value := range req.URL.Query() {
-  fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, key, value)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;获取 &lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;类型的参数&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;req.ParseForm()
-username := request.Form.Get(&amp;#34;username&amp;#34;)
-password := request.Form.Get(&amp;#34;password&amp;#34;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;curl命令&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -X POST https://reqbin.com/echo/post/form
-   -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; 
-   -d &amp;#34;param1=value1&amp;amp;param2=value2&amp;#34; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;获取&lt;code&gt;application/json &lt;/code&gt;类型的参数&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func  json_decode(w http.ResponseWriter, req *http.Request) {
-	decoder := json.NewDecoder(req.Body)
-	var v map[string]interface{}
-	err := decoder.Decode(&amp;amp;v)
-	if err != nil {
-		panic(err)
-	}
-	for key, value := range v {
-		switch value := value.(type) {
-		case string:
-			fmt.Printf(&amp;#34;Key: %s, Value: %s, Type: string\n&amp;#34;, key, value)
-		case int:
-			fmt.Printf(&amp;#34;Key: %s, Value: %d, Type: int\n&amp;#34;, key, value)
-		case bool:
-			fmt.Printf(&amp;#34;Key: %s, Value: %t, Type: bool\n&amp;#34;, key, value)
-		case float64:
-			fmt.Printf(&amp;#34;Key: %s, Value: %f, Type: float64\n&amp;#34;, key, value)
-		case []string:
-			fmt.Printf(&amp;#34;Key: %s, Value: %v, Type: []string\n&amp;#34;, key, value)
-		default:
-			fmt.Printf(&amp;#34;Key: %s, Value: %v, Type: unknown\n&amp;#34;, key, value)
-		}
-	}
-	fmt.Fprintf(w,&amp;#34;{\&amp;#34;code\&amp;#34;:0}&amp;#34;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;context&#34;&gt;Context
-&lt;/h3&gt;&lt;p&gt;平时在 Go 工程中开发中，几乎所有服务端（例如：HTTP Server）的默认实现，都在处理请求时新起 goroutine 进行处理。&lt;/p&gt;
-&lt;p&gt;但一开始存在一个问题，那就是当一个请求被取消或超时时，所有在该请求上工作的 goroutines 应该迅速退出，以便系统可以回收他们正在使用的任何资源。&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
-
-import (
-    &amp;#34;fmt&amp;#34;
-    &amp;#34;net/http&amp;#34;
-    &amp;#34;time&amp;#34;
-)
-
-func hello(w http.ResponseWriter, req *http.Request) {
-
-    ctx := req.Context()
-    fmt.Println(&amp;#34;server: hello handler started&amp;#34;)
-    defer fmt.Println(&amp;#34;server: hello handler ended&amp;#34;)
-
-    select {
-    case &amp;lt;-time.After(10 * time.Second):
-        fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
-    case &amp;lt;-ctx.Done():
-
-        err := ctx.Err()
-        fmt.Println(&amp;#34;server:&amp;#34;, err)
-        internalError := http.StatusInternalServerError
-        http.Error(w, err.Error(), internalError)
-    }
-}
-
-func main() {
-
-    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
-    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;客户端主动断开后，会进入ctx.Done()分支&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Thu, 17 Oct 2024 01:02:59 +0800</lastBuildDate><atom:link href="https://898311543.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>ffmpeg中级开发</title>
         <link>https://898311543.github.io/post/ffmpeg_medium/</link>
         <pubDate>Thu, 17 Oct 2024 01:02:59 +0800</pubDate>
@@ -1379,6 +1180,422 @@ _ERROR:
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://898311543.github.io/post/golang_learning/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://898311543.github.io/post/golang_learning/</guid>
+        <description>&lt;p&gt;&amp;laquo;&amp;laquo;&amp;laquo;&amp;lt; HEAD
++++&lt;/p&gt;
+&lt;p&gt;date = &amp;lsquo;2024-10-17T11:27:55+08:00&amp;rsquo;
+title = &amp;lsquo;Golang学习记录&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;+++&lt;/p&gt;
+&lt;h1 id=&#34;golang-知识记录&#34;&gt;&lt;strong&gt;Golang 知识记录&lt;/strong&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;例子&#34;&gt;例子
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;写响应头长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: zeroLength&amp;#34;)
+		w.Header().Set(&amp;#34;Content-Length&amp;#34;, &amp;#34;0&amp;#34;)
+		w.Write([]byte(&amp;#34;This is the actual response body&amp;#34;))
+		return
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;写状态码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: 404&amp;#34;)
+		http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusNotFound)
+		return
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;不同访问次数的访问结果不同（第一次访问成功，其他访问失败）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		query := r.URL.Query()
+		val := query.Get(&amp;#34;command&amp;#34;)
+		switch  val {
+			case &amp;#34;clear&amp;#34;:
+				accessCount = 0
+				return
+		}
+		if accessCount &amp;gt; 0 {
+			
+			http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusInternalServerError)
+			fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d fails\n&amp;#34;,accessCount)
+			accessCount ++
+			return
+		}
+		http.ServeFile(w, r, &amp;#34;file_folder/1MB.mp4&amp;#34;)
+		fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d success\n&amp;#34;,accessCount)
+		accessCount ++
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;删除请求header中的特定参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;			r.Header.Del(&amp;#34;Range&amp;#34;)             // 删除参数
+			http.ServeFile(w, r, &amp;#34;file_folder/1022KB.mp4&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;golang-server-基本用法&#34;&gt;golang server 基本用法
+&lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+    &amp;#34;fmt&amp;#34;
+    &amp;#34;net/http&amp;#34;
+)
+// handler 函数有两个参数，`http.ResponseWriter` 和 `http.Request`。 response writer 被用于写入 HTTP 响应数据，这里我们简单的返回 “hello\n”。
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
+}
+// 这个 handler 稍微复杂一点， 我们需要读取的 HTTP 请求 header 中的所有内容，并将他们输出至 response body。
+func headers(w http.ResponseWriter, req *http.Request) {
+
+    for name, headers := range req.Header {
+        for _, h := range headers {
+            fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, name, h)
+        }
+    }
+}
+
+func main() {
+
+    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
+    http.HandleFunc(&amp;#34;/headers&amp;#34;, headers)
+
+    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;关于路径&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;http.HandleFunc(&amp;quot;/globFiles/&amp;quot;, globFiles) 路径最后携带/ 能够通配/globFiles开头的所有路径&lt;/li&gt;
+&lt;li&gt;如果不携带只能精确匹配这个指定的路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读取GET的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;获取query&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;q := r.URL.Query()
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;读取参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;id := query[&amp;quot;id&amp;quot;][0] &lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;id := query.Get(&amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;map遍历&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for key, value := range req.URL.Query() {
+  fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, key, value)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;获取 &lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;类型的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;req.ParseForm()
+username := request.Form.Get(&amp;#34;username&amp;#34;)
+password := request.Form.Get(&amp;#34;password&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;curl命令&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -X POST https://reqbin.com/echo/post/form
+   -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; 
+   -d &amp;#34;param1=value1&amp;amp;param2=value2&amp;#34; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;获取&lt;code&gt;application/json &lt;/code&gt;类型的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func  json_decode(w http.ResponseWriter, req *http.Request) {
+	decoder := json.NewDecoder(req.Body)
+	var v map[string]interface{}
+	err := decoder.Decode(&amp;amp;v)
+	if err != nil {
+		panic(err)
+	}
+	for key, value := range v {
+		switch value := value.(type) {
+		case string:
+			fmt.Printf(&amp;#34;Key: %s, Value: %s, Type: string\n&amp;#34;, key, value)
+		case int:
+			fmt.Printf(&amp;#34;Key: %s, Value: %d, Type: int\n&amp;#34;, key, value)
+		case bool:
+			fmt.Printf(&amp;#34;Key: %s, Value: %t, Type: bool\n&amp;#34;, key, value)
+		case float64:
+			fmt.Printf(&amp;#34;Key: %s, Value: %f, Type: float64\n&amp;#34;, key, value)
+		case []string:
+			fmt.Printf(&amp;#34;Key: %s, Value: %v, Type: []string\n&amp;#34;, key, value)
+		default:
+			fmt.Printf(&amp;#34;Key: %s, Value: %v, Type: unknown\n&amp;#34;, key, value)
+		}
+	}
+	fmt.Fprintf(w,&amp;#34;{\&amp;#34;code\&amp;#34;:0}&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;context&#34;&gt;Context
+&lt;/h3&gt;&lt;p&gt;平时在 Go 工程中开发中，几乎所有服务端（例如：HTTP Server）的默认实现，都在处理请求时新起 goroutine 进行处理。&lt;/p&gt;
+&lt;p&gt;但一开始存在一个问题，那就是当一个请求被取消或超时时，所有在该请求上工作的 goroutines 应该迅速退出，以便系统可以回收他们正在使用的任何资源。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+    &amp;#34;fmt&amp;#34;
+    &amp;#34;net/http&amp;#34;
+    &amp;#34;time&amp;#34;
+)
+
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    ctx := req.Context()
+    fmt.Println(&amp;#34;server: hello handler started&amp;#34;)
+    defer fmt.Println(&amp;#34;server: hello handler ended&amp;#34;)
+
+    select {
+    case &amp;lt;-time.After(10 * time.Second):
+        fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
+    case &amp;lt;-ctx.Done():
+
+        err := ctx.Err()
+        fmt.Println(&amp;#34;server:&amp;#34;, err)
+        internalError := http.StatusInternalServerError
+        http.Error(w, err.Error(), internalError)
+    }
+}
+
+func main() {
+
+    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
+    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;客户端主动断开后，会进入ctx.Done()分支&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;生成进程&#34;&gt;生成进程
+&lt;/h2&gt;&lt;p&gt;=======
++++&lt;/p&gt;
+&lt;p&gt;date = &amp;lsquo;2024-10-17T11:27:55+08:00&amp;rsquo;
+title = &amp;lsquo;Golang学习记录&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;+++&lt;/p&gt;
+&lt;h1 id=&#34;golang-知识记录-1&#34;&gt;&lt;strong&gt;Golang 知识记录&lt;/strong&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;例子-1&#34;&gt;例子
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;写响应头长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: zeroLength&amp;#34;)
+		w.Header().Set(&amp;#34;Content-Length&amp;#34;, &amp;#34;0&amp;#34;)
+		w.Write([]byte(&amp;#34;This is the actual response body&amp;#34;))
+		return
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;写状态码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		fmt.Println(&amp;#34;abnormalFileServer: 404&amp;#34;)
+		http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusNotFound)
+		return
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;不同访问次数的访问结果不同（第一次访问成功，其他访问失败）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;		query := r.URL.Query()
+		val := query.Get(&amp;#34;command&amp;#34;)
+		switch  val {
+			case &amp;#34;clear&amp;#34;:
+				accessCount = 0
+				return
+		}
+		if accessCount &amp;gt; 0 {
+			
+			http.Error(w, &amp;#34;abnormalFileServer&amp;#34;, http.StatusInternalServerError)
+			fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d fails\n&amp;#34;,accessCount)
+			accessCount ++
+			return
+		}
+		http.ServeFile(w, r, &amp;#34;file_folder/1MB.mp4&amp;#34;)
+		fmt.Printf(&amp;#34;onlyFirstSuccess.mp4 : %d success\n&amp;#34;,accessCount)
+		accessCount ++
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;删除请求header中的特定参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;			r.Header.Del(&amp;#34;Range&amp;#34;)             // 删除参数
+			http.ServeFile(w, r, &amp;#34;file_folder/1022KB.mp4&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;golang-server-基本用法-1&#34;&gt;golang server 基本用法
+&lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+    &amp;#34;fmt&amp;#34;
+    &amp;#34;net/http&amp;#34;
+)
+// handler 函数有两个参数，`http.ResponseWriter` 和 `http.Request`。 response writer 被用于写入 HTTP 响应数据，这里我们简单的返回 “hello\n”。
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
+}
+// 这个 handler 稍微复杂一点， 我们需要读取的 HTTP 请求 header 中的所有内容，并将他们输出至 response body。
+func headers(w http.ResponseWriter, req *http.Request) {
+
+    for name, headers := range req.Header {
+        for _, h := range headers {
+            fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, name, h)
+        }
+    }
+}
+
+func main() {
+
+    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
+    http.HandleFunc(&amp;#34;/headers&amp;#34;, headers)
+
+    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;关于路径&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;http.HandleFunc(&amp;quot;/globFiles/&amp;quot;, globFiles) 路径最后携带/ 能够通配/globFiles开头的所有路径&lt;/li&gt;
+&lt;li&gt;如果不携带只能精确匹配这个指定的路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读取GET的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;获取query&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;q := r.URL.Query()
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;读取参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;id := query[&amp;quot;id&amp;quot;][0] &lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;id := query.Get(&amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;map遍历&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for key, value := range req.URL.Query() {
+  fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, key, value)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;获取 &lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;类型的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;req.ParseForm()
+username := request.Form.Get(&amp;#34;username&amp;#34;)
+password := request.Form.Get(&amp;#34;password&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;curl命令&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -X POST https://reqbin.com/echo/post/form
+   -H &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; 
+   -d &amp;#34;param1=value1&amp;amp;param2=value2&amp;#34; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;获取&lt;code&gt;application/json &lt;/code&gt;类型的参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func  json_decode(w http.ResponseWriter, req *http.Request) {
+	decoder := json.NewDecoder(req.Body)
+	var v map[string]interface{}
+	err := decoder.Decode(&amp;amp;v)
+	if err != nil {
+		panic(err)
+	}
+	for key, value := range v {
+		switch value := value.(type) {
+		case string:
+			fmt.Printf(&amp;#34;Key: %s, Value: %s, Type: string\n&amp;#34;, key, value)
+		case int:
+			fmt.Printf(&amp;#34;Key: %s, Value: %d, Type: int\n&amp;#34;, key, value)
+		case bool:
+			fmt.Printf(&amp;#34;Key: %s, Value: %t, Type: bool\n&amp;#34;, key, value)
+		case float64:
+			fmt.Printf(&amp;#34;Key: %s, Value: %f, Type: float64\n&amp;#34;, key, value)
+		case []string:
+			fmt.Printf(&amp;#34;Key: %s, Value: %v, Type: []string\n&amp;#34;, key, value)
+		default:
+			fmt.Printf(&amp;#34;Key: %s, Value: %v, Type: unknown\n&amp;#34;, key, value)
+		}
+	}
+	fmt.Fprintf(w,&amp;#34;{\&amp;#34;code\&amp;#34;:0}&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;context-1&#34;&gt;Context
+&lt;/h3&gt;&lt;p&gt;平时在 Go 工程中开发中，几乎所有服务端（例如：HTTP Server）的默认实现，都在处理请求时新起 goroutine 进行处理。&lt;/p&gt;
+&lt;p&gt;但一开始存在一个问题，那就是当一个请求被取消或超时时，所有在该请求上工作的 goroutines 应该迅速退出，以便系统可以回收他们正在使用的任何资源。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+    &amp;#34;fmt&amp;#34;
+    &amp;#34;net/http&amp;#34;
+    &amp;#34;time&amp;#34;
+)
+
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    ctx := req.Context()
+    fmt.Println(&amp;#34;server: hello handler started&amp;#34;)
+    defer fmt.Println(&amp;#34;server: hello handler ended&amp;#34;)
+
+    select {
+    case &amp;lt;-time.After(10 * time.Second):
+        fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;)
+    case &amp;lt;-ctx.Done():
+
+        err := ctx.Err()
+        fmt.Println(&amp;#34;server:&amp;#34;, err)
+        internalError := http.StatusInternalServerError
+        http.Error(w, err.Error(), internalError)
+    }
+}
+
+func main() {
+
+    http.HandleFunc(&amp;#34;/hello&amp;#34;, hello)
+    http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;客户端主动断开后，会进入ctx.Done()分支&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1e2800da50fc704b88937a0323c991f0f330be55&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+</description>
         </item>
         
     </channel>
