@@ -352,10 +352,20 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 <h3 id="yuv420pyu12和yv12格式">YUV420P(YU12和YV12)格式
 </h3><p><code>YUV420P</code>又叫<code>plane平面模式</code>，<code>Y , U , V</code>分别在不同平面，也就是有三个平面，它是<code>YUV标准格式4：2：0</code>，主要分为：<code>YU12</code>和<code>YV12</code></p>
 <p>
-<img class="img-fluid" src="../../assets/20181119225805899.png" alt='img' />
+
+
+
+
+
+<img class="img-fluid" src="/20181119225805899.png" alt='img' />
 </p>
 <p>
-<img class="img-fluid" src="../../assets/2018111923013322.png" alt='img' />
+
+
+
+
+
+<img class="img-fluid" src="/2018111923013322.png" alt='img' />
 </p>
 <ul>
 <li>
@@ -364,7 +374,12 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 <li>在<code>Android平台下</code>也叫做<code>I420格式</code>，首先是所有<code>Y值</code>，然后是所有<code>U值</code>，最终是所有<code>V值</code>。</li>
 </ul>
 <p>
-<img class="img-fluid" src="../../assets/2018112012345555.png" alt='img' />
+
+
+
+
+
+<img class="img-fluid" src="/2018112012345555.png" alt='img' />
 </p>
 <p><code>YU12：亮度(行×列) + U(行×列/4) + V(行×列/4)</code></p>
 </li>
@@ -374,7 +389,12 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 <li><code>YV12格式</code>与<code>YU12</code>基本相同，首先是所有<code>Y值</code>，然后是所有<code>V值</code>，最后是所有<code>U值</code>。只要注意从适当的位置提取<code>U和V值</code>，<code>YU12和YV12</code>都可以使用相同的算法进行处理。</li>
 </ul>
 <p>
-<img class="img-fluid" src="../../assets/20181120123516554.png" alt='img' />
+
+
+
+
+
+<img class="img-fluid" src="/20181120123516554.png" alt='img' />
 </p>
 <p><code>YV12：亮度Y(行×列) + V(行×列/4) + U(行×列/4</code></p>
 </li>

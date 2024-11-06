@@ -413,10 +413,20 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 &lt;h3 id=&#34;yuv420pyu12和yv12格式&#34;&gt;YUV420P(YU12和YV12)格式
 &lt;/h3&gt;&lt;p&gt;&lt;code&gt;YUV420P&lt;/code&gt;又叫&lt;code&gt;plane平面模式&lt;/code&gt;，&lt;code&gt;Y , U , V&lt;/code&gt;分别在不同平面，也就是有三个平面，它是&lt;code&gt;YUV标准格式4：2：0&lt;/code&gt;，主要分为：&lt;code&gt;YU12&lt;/code&gt;和&lt;code&gt;YV12&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;
-&lt;img class=&#34;img-fluid&#34; src=&#34;../../assets/20181119225805899.png&#34; alt=&#39;img&#39; /&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/20181119225805899.png&#34; alt=&#39;img&#39; /&gt;
 &lt;/p&gt;
 &lt;p&gt;
-&lt;img class=&#34;img-fluid&#34; src=&#34;../../assets/2018111923013322.png&#34; alt=&#39;img&#39; /&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/2018111923013322.png&#34; alt=&#39;img&#39; /&gt;
 &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -425,7 +435,12 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 &lt;li&gt;在&lt;code&gt;Android平台下&lt;/code&gt;也叫做&lt;code&gt;I420格式&lt;/code&gt;，首先是所有&lt;code&gt;Y值&lt;/code&gt;，然后是所有&lt;code&gt;U值&lt;/code&gt;，最终是所有&lt;code&gt;V值&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
-&lt;img class=&#34;img-fluid&#34; src=&#34;../../assets/2018112012345555.png&#34; alt=&#39;img&#39; /&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/2018112012345555.png&#34; alt=&#39;img&#39; /&gt;
 &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;YU12：亮度(行×列) + U(行×列/4) + V(行×列/4)&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
@@ -435,7 +450,12 @@ YUV 4:2:0采样，每四个Y共用一组UV分量,一个YUV占8+2+2 = 12bits 1.5�
 &lt;li&gt;&lt;code&gt;YV12格式&lt;/code&gt;与&lt;code&gt;YU12&lt;/code&gt;基本相同，首先是所有&lt;code&gt;Y值&lt;/code&gt;，然后是所有&lt;code&gt;V值&lt;/code&gt;，最后是所有&lt;code&gt;U值&lt;/code&gt;。只要注意从适当的位置提取&lt;code&gt;U和V值&lt;/code&gt;，&lt;code&gt;YU12和YV12&lt;/code&gt;都可以使用相同的算法进行处理。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
-&lt;img class=&#34;img-fluid&#34; src=&#34;../../assets/20181120123516554.png&#34; alt=&#39;img&#39; /&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/20181120123516554.png&#34; alt=&#39;img&#39; /&gt;
 &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;YV12：亮度Y(行×列) + V(行×列/4) + U(行×列/4&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
