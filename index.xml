@@ -317,24 +317,30 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;比特币课程&#34;&gt;比特币课程
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;金钱的功能
-一个媒介，一种度量衡，一个标准，一种储值方式&lt;/li&gt;
-&lt;li&gt;商品货币：由实际有价值的商品制成，例如黄金
+&lt;li&gt;
+&lt;p&gt;金钱的功能
+一个媒介，一种度量衡，一个标准，一种储值方式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;商品货币：由实际有价值的商品制成，例如黄金&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;角色扮演游戏中的 &amp;ldquo;金币”&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;代表货币：由有价值的“东西”支持的货币，例如黄金
+&lt;li&gt;
+&lt;p&gt;代表货币：由有价值的“东西”支持的货币，例如黄金&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;当美元处于“金本位”时&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;法定货币：由政府“通过法定货币”建立
+&lt;li&gt;
+&lt;p&gt;法定货币：由政府“通过法定货币”建立&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;现在的美元&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;加密货币
+&lt;li&gt;
+&lt;p&gt;加密货币&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;旨在作为交换媒介的数字资产&lt;/li&gt;
 &lt;li&gt;“一种被广泛接受的代币，可以兑换商品和服务”&lt;/li&gt;
@@ -342,7 +348,8 @@
 &lt;li&gt;他们使用现代加密技术（加密和散列），因此得名&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;什么是加密货币
+&lt;li&gt;
+&lt;p&gt;什么是加密货币&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;没有中央权威，其状态通过分布式共识维持&lt;/li&gt;
 &lt;li&gt;该系统保留了加密货币单位及其所有权的概览&lt;/li&gt;
@@ -352,7 +359,8 @@
 &lt;li&gt;如果同时输入两条不同的指令来更改同一加密单元的所有权，系统最多执行其中一条指令&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;是什么让钱变得有价值
+&lt;li&gt;
+&lt;p&gt;是什么让钱变得有价值&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;它被广泛接受&lt;/li&gt;
 &lt;li&gt;它得到稳定的政府或实体的支持&lt;/li&gt;
@@ -375,7 +383,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;是什么让数字货币有价值
+&lt;li&gt;
+&lt;p&gt;是什么让数字货币有价值&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;这是指没有非数字等价物的货币&lt;/li&gt;
 &lt;li&gt;但满足如下情况时 他就会值钱
@@ -387,28 +396,77 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;btc如何转账？
+&lt;li&gt;
+&lt;p&gt;btc如何转账？&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;要将 x 从您自己 (S) 转移到目的地 (D)
+&lt;li&gt;
+&lt;p&gt;要将 x 从您自己 (S) 转移到目的地 (D)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;S和D是钱包的公钥&lt;/li&gt;
 &lt;li&gt;获得资金的交易的哈希值&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;用钱包的私钥进行签名&lt;/li&gt;
-&lt;li&gt;然后将其广播到 P2P 网络&lt;/li&gt;
-&lt;li&gt;交易最多需要 30 分钟才能完成
+&lt;li&gt;
+&lt;p&gt;用钱包的私钥进行签名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;然后将其广播到 P2P 网络&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;交易最多需要 30 分钟才能完成&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;这可以防止双重支出&lt;/li&gt;
 &lt;li&gt;也部分同时也是因为挖矿导致的&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;内存池
+&lt;li&gt;
+&lt;p&gt;内存池&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;所有尚未上链的交易都存储在公开的内存池或mempool中&lt;/li&gt;
 &lt;li&gt;由“享有同等特权的矿工”网络维护&lt;/li&gt;
 &lt;li&gt;每隔 10 分钟左右，所有交易都会合并到一个区块中&lt;/li&gt;
 &lt;li&gt;该区块成为区块链的一部分（通过挖矿）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;区块链&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一个区块是“创世区块”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每个连续的块都包含前一个块的 SHA-256 哈希值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因此，您无法在不更改所有后续块的情况下更改前一个块&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当前区块链（截至 2024 年 1 月 18 日）为 826,343 个区块（又名“高度”）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;大小约 530 GB&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每个区块都由某人开采&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将会用货币进行奖励&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一个块包含前一个块的哈希值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;它们通常不包含该块的哈希值；为了清楚起见，将其放入图表中&lt;/li&gt;
+&lt;li&gt;一个区块可能包含交易&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+
+
+&lt;img class=&#34;img-fluid&#34; src=&#34;https://898311543.github.io/image-20241221010310922.png&#34; alt=&#39;image-20241221010310922&#39; /&gt;
+&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
