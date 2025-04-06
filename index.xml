@@ -38,7 +38,41 @@ int main() {
 	std::cout &amp;lt;&amp;lt; &amp;#34;是否为空:&amp;#34; &amp;lt;&amp;lt; nums.empty() &amp;lt;&amp;lt; std::endl;
 	return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
+using namespace std;
+template&amp;lt;typename T&amp;gt;
+class Vector {
+private:
+	T* data;
+	size_t size;
+public:
+	class iterator {
+	private:
+		T* ptr;
+	public:
+		explicit iterator(T* p = nullptr) : ptr(p) {}
+
+		T&amp;amp; operator*() { return *ptr; }
+		iterator&amp;amp; operator++() {++ptr; return *this; }
+		bool operator!=(const iterator&amp;amp; other) const {
+			return ptr != other.ptr;
+		}
+	};
+	iterator begin() { return iterator(data); }
+	iterator end() { return iterator(data+size);}
+
+	Vector(size_t n = 0) : data(new T[n]),size(n) {}
+	~Vector() { delete[] data; }
+};
+int main() {
+	Vector&amp;lt;int&amp;gt; vec(3);
+	for (auto it=vec.begin();it != vec.end(); ++it) {
+		*it = 42;
+	}
+	cout &amp;lt;&amp;lt; *vec.begin() &amp;lt;&amp;lt; endl;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;vector示例代码&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>alist上传脚本</title>
